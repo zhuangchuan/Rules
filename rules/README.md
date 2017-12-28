@@ -92,7 +92,7 @@
 
 **[⬆ 回到顶部](#table-of-contents)**
 
-### <a name="semi">强制数组方法的回调函数中有 return 语句 (array-callback-return)</a>
+### <a name="array-callback-return">强制数组方法的回调函数中有 return 语句 (array-callback-return)</a>
 
 
   - **选项 "off"**: 禁止禁用
