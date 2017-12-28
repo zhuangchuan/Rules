@@ -2,7 +2,7 @@
 
 *代码规范*
 
-## <a name="table-of-contents">目录</a>
+# <a name="table-of-contents">目录</a>
 
   1. [分号（semi）](#semi)
   1. [未使用过的变量（no-unused-vars）](#no-unused-vars)
@@ -43,7 +43,7 @@
   1. [no-native-reassign](#no-native-reassign)
   1. [no-negated-in-lhs](#no-negated-in-lhs)
   
-## 代码规范常见问题
+# 代码规范常见问题
 
 ## <a name="semi">semi 要求或禁止使用分号代替 ASI (semi)</a>
 
