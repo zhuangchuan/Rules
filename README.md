@@ -1,10 +1,9 @@
-# Airbnb JavaScript Style Guide
+# List of available rules
 
-*用更合理的方式写 JavaScript*
+*代码规范*
 
-## [《Airbnb JavaScript Style Guide 中文版》](es5/README.md)
+## [代码规范列表](rules/README.md)
 
-重新翻译了最常用的 ES5 版，同步更新英文版改动。
 
 ---
 
