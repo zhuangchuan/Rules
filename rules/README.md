@@ -4,10 +4,10 @@
 
 ## <a name="table-of-contents">目录</a>
 
-  1. [分号（semi）](#semi)
-  1. [未使用过的变量（no-unused-vars）](#no-unused-vars)
-  1. [no-console](#no-console)
-  1. [array-callback-return](#array-callback-return)
+  1. [分号 (semi)](#semi)
+  1. [未使用过的变量 (no-unused-vars)](#no-unused-vars)
+  1. [禁用 console (no-console)](#no-console)
+  1. [强制数组方法的回调函数中有 return 语句 (array-callback-return)](#array-callback-return)
   1. [default-case](#default-case)
   1. [dot-location](#dot-location)
   1. [eqeqeq](#eqeqeq)
@@ -45,7 +45,7 @@
   
 ## 代码规范常见问题
 
-### <a name="semi">semi 要求或禁止使用分号代替 ASI (semi)</a>
+### <a name="semi">要求或禁止使用分号代替 ASI (semi)</a>
 
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
 
@@ -75,3 +75,28 @@
 
 **[⬆ 回到顶部](#table-of-contents)**
 
+### <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
+
+
+  - **选项 "args"**: none - 不检查参数
+  - **选项 "ignoreRestSiblings"**: 选项是个布尔类型 (默认: false)。使用 Rest 属性 可能会“省略”对象中的属性，但是默认情况下，其兄弟属性被标记为 “unused”。使用该选项可以使 rest 属性的兄弟属性被忽略。
+  
+
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+### <a name="no-console">禁用 console (no-console) (semi)</a>
+
+
+  - **选项 "off"**: 禁止禁用
+
+**[⬆ 回到顶部](#table-of-contents)**
+
+### <a name="semi">强制数组方法的回调函数中有 return 语句 (array-callback-return)</a>
+
+
+  - **选项 "off"**: 禁止禁用
+
+  
+
+**[⬆ 回到顶部](#table-of-contents)**
