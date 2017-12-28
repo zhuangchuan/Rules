@@ -4,70 +4,73 @@
 
 ## <a name="table-of-contents">目录</a>
 
-  1. [semi](#semi)
-  1. [对象](#objects)
-  1. [数组](#arrays)
-  1. [字符串](#strings)
-  1. [函数](#functions)
-  1. [属性](#properties)
-  1. [变量](#variables)
-  1. [提升](#hoisting)
-  1. [比较运算符 & 等号](#comparison-operators--equality)
-  1. [块](#blocks)
-  1. [注释](#comments)
-  1. [空白](#whitespace)
-  1. [逗号](#commas)
-  1. [分号](#semicolons)
-  1. [类型转化](#type-casting--coercion)
-  1. [命名规则](#naming-conventions)
-  1. [存取器](#accessors)
-  1. [构造函数](#constructors)
-  1. [事件](#events)
-  1. [模块](#modules)
-  1. [jQuery](#jquery)
-  1. [ECMAScript 5 兼容性](#ecmascript-5-compatibility)
-  1. [测试](#testing)
-  1. [性能](#performance)
-  1. [资源](#resources)
-  1. [谁在使用](#in-the-wild)
-  1. [翻译](#translation)
-  1. [JavaScript 风格指南说明](#the-javascript-style-guide-guide)
-  1. [与我们讨论 JavaScript](#chat-with-us-about-javascript)
-  1. [贡献者](#contributors)
-  1. [许可](#license)
+  1. [分号（semi）](#semi)
+  1. [no-unused-vars](#no-unused-vars)
+  1. [no-console](#no-console)
+  1. [array-callback-return](#array-callback-return)
+  1. [default-case](#default-case)
+  1. [dot-location](#dot-location)
+  1. [eqeqeq](#eqeqeq)
+  1. [new-parens](#new-parens)
+  1. [no-array-constructor](#no-array-constructor)
+  1. [no-caller](#no-caller)
+  1. [no-cond-assign](#no-cond-assign)
+  1. [no-const-assign](#no-const-assign)
+  1. [no-control-regex](#no-control-regex)
+  1. [no-delete-var](#no-delete-var)
+  1. [no-dupe-args](#no-dupe-args)
+  1. [no-dupe-class-members](#no-dupe-class-members)
+  1. [no-dupe-keys](#no-dupe-keys)
+  1. [no-duplicate-case](#no-duplicate-case)
+  1. [no-empty-character-class](#no-empty-character-class)
+  1. [no-empty-pattern](#no-empty-pattern)
+  1. [no-eval](#no-eval)
+  1. [no-ex-assign](#no-ex-assign)
+  1. [no-extend-native](#no-extend-native)
+  1. [no-extra-bind](#no-extra-bind)
+  1. [no-extra-label](#no-extra-label)
+  1. [no-fallthrough](#no-fallthrough)
+  1. [no-func-assign](#no-func-assign)
+  1. [no-implied-eval](#no-implied-eval)
+  1. [no-invalid-regexp](#no-invalid-regexp)
+  1. [no-iterator](#no-iterator)
+  1. [no-label-var](#no-label-var)
+  1. [no-labels](#no-labels)
+  1. [no-lone-blocks](#no-lone-blocks)
+  1. [no-loop-func](#no-loop-func)
+  1. [no-mixed-operators](#no-mixed-operators)
+  1. [no-multi-str](#no-multi-str)
+  1. [no-native-reassign](#no-native-reassign)
+  1. [no-negated-in-lhs](#no-negated-in-lhs)
+  
 
-## <a name="semi">semi</a>
+## <a name="semi">semi 要求或禁止使用分号代替 ASI (semi)</a>
 
-  - **原始值**: 存取直接作用于它自身。
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
 
-    + `string`
-    + `number`
-    + `boolean`
-    + `null`
-    + `undefined`
+  - **选项 "always"**: (默认) 要求在语句末尾使用分号
 
-    ```javascript
-    var foo = 1;
-    var bar = foo;
-
-    bar = 9;
-
-    console.log(foo, bar); // => 1, 9
-    ```
-  - **复杂类型**: 存取时作用于它自身值的引用。
-
-    + `object`
-    + `array`
-    + `function`
-
-    ```javascript
-    var foo = [1, 2];
-    var bar = foo;
-
-    bar[0] = 9;
-
-    console.log(foo[0], bar[0]); // => 9, 9
-    ```
+   `错误 代码示例：`
+    
+    
+    /*eslint semi: ["error", "always"]*/
+    
+    var name = "ESLint"
+    
+    object.method = function() {
+        // ...
+    }
+  `正确 代码示例：`
+      
+      
+      /*eslint semi: "error"*/
+      
+      var name = "ESLint";
+      
+      object.method = function() {
+          // ...
+      };
+  
 
 **[⬆ 回到顶部](#table-of-contents)**
 
