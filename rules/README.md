@@ -20,11 +20,11 @@
   1. [禁止删除变量 (no-delete-var)](#no-delete-var)
   1. [禁止在 function 定义中出现重复的参数 (no-dupe-args)](#no-dupe-args)
   1. [不允许类成员中有重复的名称 (no-dupe-class-members)](#no-dupe-class-members)
-  1. [no-dupe-keys](#no-dupe-keys)
-  1. [no-duplicate-case](#no-duplicate-case)
-  1. [no-empty-character-class](#no-empty-character-class)
-  1. [no-empty-pattern](#no-empty-pattern)
-  1. [no-eval](#no-eval)
+  1. [禁止在对象字面量中出现重复的键 (no-dupe-keys)](#no-dupe-keys)
+  1. [禁止重复 case 标签（no-duplicate-case）](#no-duplicate-case)
+  1. [禁止在正则表达式中出现空字符集 (no-empty-character-class)](#no-empty-character-class)
+  1. [禁止使用空解构模式 (no-empty-pattern)](#no-empty-pattern)
+  1. [禁用 eval()（no-eval）](#no-eval)
   1. [no-ex-assign](#no-ex-assign)
   1. [no-extend-native](#no-extend-native)
   1. [no-extra-bind](#no-extra-bind)
@@ -561,6 +561,248 @@ class Foo {
 class Foo {
   static bar() { }
   bar() { }
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-dupe-keys">禁止在对象字面量中出现重复的键 (no-dupe-keys)</a>
+
+```python
+'no-dupe-keys': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-dupe-keys: "error"*/
+
+var foo = {
+    bar: "baz",
+    bar: "qux"
+};
+
+var foo = {
+    "bar": "baz",
+    bar: "qux"
+};
+
+var foo = {
+    0x1: "baz",
+    1: "qux"
+};
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-dupe-keys: "error"*/
+
+var foo = {
+    bar: "baz",
+    quxx: "qux"
+};
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-duplicate-case">禁止重复 case 标签（no-duplicate-case）</a>
+
+```python
+'no-duplicate-case': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-duplicate-case: "error"*/
+
+var a = 1,
+    one = 1;
+
+switch (a) {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 1:         // duplicate test expression
+        break;
+    default:
+        break;
+}
+
+switch (a) {
+    case one:
+        break;
+    case 2:
+        break;
+    case one:         // duplicate test expression
+        break;
+    default:
+        break;
+}
+
+switch (a) {
+    case "1":
+        break;
+    case "2":
+        break;
+    case "1":         // duplicate test expression
+        break;
+    default:
+        break;
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-duplicate-case: "error"*/
+
+var a = 1,
+    one = 1;
+
+switch (a) {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    default:
+        break;
+}
+
+switch (a) {
+    case one:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    default:
+        break;
+}
+
+switch (a) {
+    case "1":
+        break;
+    case "2":
+        break;
+    case "3":
+        break;
+    default:
+        break;
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-empty-character-class">禁止在正则表达式中出现空字符集 (no-empty-character-class)</a>
+
+```python
+'no-empty-character-class': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-empty-character-class: "error"*/
+
+/^abc[]/.test("abcdefg"); // false
+"abcdefg".match(/^abc[]/); // null
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-empty-character-class: "error"*/
+
+/^abc/.test("abcdefg"); // true
+"abcdefg".match(/^abc/); // ["abc"]
+
+/^abc[a-z]/.test("abcdefg"); // true
+"abcdefg".match(/^abc[a-z]/); // ["abcd"]
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-empty-pattern">禁止使用空解构模式 (no-empty-pattern)</a>
+
+```python
+'no-empty-pattern': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-empty-pattern: "error"*/
+
+var {} = foo;
+var [] = foo;
+var {a: {}} = foo;
+var {a: []} = foo;
+function foo({}) {}
+function foo([]) {}
+function foo({a: {}}) {}
+function foo({a: []}) {}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-empty-pattern: "error"*/
+
+var {a = {}} = foo;
+var {a = []} = foo;
+function foo({a = {}}) {}
+function foo({a = []}) {}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-eval">禁用 eval()（no-eval）</a>
+
+```python
+'no-eval': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-eval: "error"*/
+
+var obj = { x: "foo" },
+    key = "x",
+    value = eval("obj." + key);
+
+(0, eval)("var a = 0");
+
+var foo = eval;
+foo("var a = 0");
+
+// This `this` is the global object.
+this.eval("var a = 0");
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-eval: "error"*/
+/*eslint-env es6*/
+
+var obj = { x: "foo" },
+    key = "x",
+    value = obj[key];
+
+class A {
+    foo() {
+        // This is a user-defined method.
+        this.eval("var a = 0");
+    }
+
+    eval() {
+    }
 }
 ```
 **[⬆ 回到顶部](#table-of-contents)**
