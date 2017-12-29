@@ -11,10 +11,10 @@
   1. [要求 Switch 语句中有 Default 分支 (default-case)](#default-case)
   1. [强制在点号之前或之后换行 (dot-location)](#dot-location)
   1. [要求使用 === 和 !== (eqeqeq)](#eqeqeq)
-  1. [new-parens](#new-parens)
-  1. [no-array-constructor](#no-array-constructor)
-  1. [no-caller](#no-caller)
-  1. [no-cond-assign](#no-cond-assign)
+  1. [要求调用无参构造函数时带括号 (new-parens)](#new-parens)
+  1. [禁止使用 Array 构造函数 (no-array-constructor)](#no-array-constructor)
+  1. [禁用 caller 或 callee (no-caller)](#no-caller)
+  1. [禁止在条件语句中出现赋值操作符（no-cond-assign）](#no-cond-assign)
   1. [no-const-assign](#no-const-assign)
   1. [no-control-regex](#no-control-regex)
   1. [no-delete-var](#no-delete-var)
@@ -222,4 +222,162 @@ eqeqeq: ['warn', 'allow-null']
 - **等级 : "warn"**
 - **选项 "allow-null"**: 使用 “always”，然后传一个 “null” 选项，属性值为 “ignore” 代替。这将告诉 eslint 除了与 null 字面量进行比较时，总是强制使用绝对相等。
    
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="new-parens">要求调用无参构造函数时带括号 (new-parens)</a>
+
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+```python
+'new-parens': 'warn'
+```
+
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint new-parens: "error"*/
+
+var person = new Person;
+var person = new (Person);
+```
+##### 正确 代码示例：
+
+```python
+/*eslint new-parens: "error"*/
+
+var person = new Person();
+var person = new (Person)();
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-array-constructor">禁止使用 Array 构造函数 (no-array-constructor)</a>
+
+```python
+'no-array-constructor': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-array-constructor: "error"*/
+
+Array(0, 1, 2)
+/*eslint no-array-constructor: "error"*/
+
+new Array(0, 1, 2)
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-array-constructor: "error"*/
+
+Array(500)
+/*eslint no-array-constructor: "error"*/
+
+new Array(someOtherArray.length)
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-caller">禁用 caller 或 callee (no-caller)</a>
+
+```python
+'no-caller': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-caller: "error"*/
+
+function foo(n) {
+    if (n <= 0) {
+        return;
+    }
+
+    arguments.callee(n - 1);
+}
+
+[1,2,3,4,5].map(function(n) {
+    return !(n > 1) ? 1 : arguments.callee(n - 1) * n;
+});
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-caller: "error"*/
+
+function foo(n) {
+    if (n <= 0) {
+        return;
+    }
+
+    foo(n - 1);
+}
+
+[1,2,3,4,5].map(function factorial(n) {
+    return !(n > 1) ? 1 : factorial(n - 1) * n;
+});
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-cond-assign">禁止在条件语句中出现赋值操作符（no-cond-assign）</a>
+
+```python
+'no-cond-assign': ['warn', 'always']
+```
+
+- **等级 : "warn"**
+- **选项 "always"**: 禁止条件语句中出现赋值语句。
+##### 选项 "always" 的 错误 代码示例：
+
+```python
+/*eslint no-cond-assign: ["error", "always"]*/
+
+// Unintentional assignment
+var x;
+if (x = 0) {
+    var b = 1;
+}
+
+// Practical example that is similar to an error
+function setHeight(someNode) {
+    "use strict";
+    do {
+        someNode.height = "100px";
+    } while (someNode = someNode.parentNode);
+}
+
+// Practical example that wraps the assignment in parentheses
+function setHeight(someNode) {
+    "use strict";
+    do {
+        someNode.height = "100px";
+    } while ((someNode = someNode.parentNode));
+}
+
+// Practical example that wraps the assignment and tests for 'null'
+function setHeight(someNode) {
+    "use strict";
+    do {
+        someNode.height = "100px";
+    } while ((someNode = someNode.parentNode) !== null);
+}
+```
+##### 选项 "always" 的 正确 代码示例：
+
+```python
+/*eslint no-cond-assign: ["error", "always"]*/
+
+// Assignment replaced by comparison
+var x;
+if (x === 0) {
+    var b = 1;
+}
+```
 **[⬆ 回到顶部](#table-of-contents)**
