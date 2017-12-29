@@ -45,7 +45,7 @@
   
 ## 代码规范常见问题
 
-### <a name="semi">要求或禁止使用分号代替 ASI (semi)</a>
+### <a name="semi">●●要求或禁止使用分号代替 ASI (semi)</a>
 
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
 
@@ -75,7 +75,7 @@ object.method = function() {
 };
 ```
    
-### <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
+### <a name="no-unused-vars">2.禁止未使用过的变量 (no-unused-vars)</a>
 
 
   - **选项 "warn"**: 警告提示
