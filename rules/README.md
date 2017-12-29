@@ -23,6 +23,16 @@
 
    `默认选项 "always" 的 错误 代码示例：`
     
+    ```python
+@requires_authorization  
+class SomeClass:
+    pass
+
+if __name__ == '__main__':
+    # A comment
+    print 'hello world'
+```
+    
     
     /*eslint semi: ["error", "always"]*/
     
