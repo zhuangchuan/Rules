@@ -15,11 +15,11 @@
   1. [禁止使用 Array 构造函数 (no-array-constructor)](#no-array-constructor)
   1. [禁用 caller 或 callee (no-caller)](#no-caller)
   1. [禁止在条件语句中出现赋值操作符（no-cond-assign）](#no-cond-assign)
-  1. [no-const-assign](#no-const-assign)
-  1. [no-control-regex](#no-control-regex)
-  1. [no-delete-var](#no-delete-var)
-  1. [no-dupe-args](#no-dupe-args)
-  1. [no-dupe-class-members](#no-dupe-class-members)
+  1. [不允许改变用const声明的变量 (no-const-assign)](#no-const-assign)
+  1. [禁止在正则表达式中使用控制字符（no-control-regex）](#no-control-regex)
+  1. [禁止删除变量 (no-delete-var)](#no-delete-var)
+  1. [禁止在 function 定义中出现重复的参数 (no-dupe-args)](#no-dupe-args)
+  1. [不允许类成员中有重复的名称 (no-dupe-class-members)](#no-dupe-class-members)
   1. [no-dupe-keys](#no-dupe-keys)
   1. [no-duplicate-case](#no-duplicate-case)
   1. [no-empty-character-class](#no-empty-character-class)
@@ -378,6 +378,189 @@ function setHeight(someNode) {
 var x;
 if (x === 0) {
     var b = 1;
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-const-assign">不允许改变用const声明的变量 (no-const-assign)</a>
+
+```python
+'no-const-assign': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-const-assign: "error"*/
+/*eslint-env es6*/
+
+const a = 0;
+a = 1;
+/*eslint no-const-assign: "error"*/
+/*eslint-env es6*/
+
+const a = 0;
+a += 1;
+/*eslint no-const-assign: "error"*/
+/*eslint-env es6*/
+
+const a = 0;
+++a;
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-const-assign: "error"*/
+/*eslint-env es6*/
+
+const a = 0;
+console.log(a);
+/*eslint no-const-assign: "error"*/
+/*eslint-env es6*/
+
+for (const a in [1, 2, 3]) { // `a` is re-defined (not modified) on each loop step.
+    console.log(a);
+}
+/*eslint no-const-assign: "error"*/
+/*eslint-env es6*/
+
+for (const a of [1, 2, 3]) { // `a` is re-defined (not modified) on each loop step.
+    console.log(a);
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-control-regex">禁止在正则表达式中使用控制字符（no-control-regex）</a>
+
+```python
+'no-control-regex': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-control-regex: "error"*/
+
+var pattern1 = /\x1f/;
+var pattern2 = new RegExp("\x1f");
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-control-regex: "error"*/
+
+var pattern1 = /\x20/;
+var pattern2 = new RegExp("\x20");
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-delete-var">禁止删除变量 (no-delete-var)</a>
+
+```python
+'no-delete-var': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-delete-var: "error"*/
+
+var x;
+delete x;
+```
+
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-dupe-args">禁止在 function 定义中出现重复的参数 (no-dupe-args)</a>
+
+```python
+'no-dupe-args': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-dupe-args: "error"*/
+
+function foo(a, b, a) {
+    console.log("value of the second a:", a);
+}
+
+var bar = function (a, b, a) {
+    console.log("value of the second a:", a);
+};
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-dupe-args: "error"*/
+
+function foo(a, b, c) {
+    console.log(a, b, c);
+}
+
+var bar = function (a, b, c) {
+    console.log(a, b, c);
+};
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-dupe-class-members">不允许类成员中有重复的名称 (no-dupe-class-members)</a>
+
+```python
+'no-dupe-class-members': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-dupe-class-members: "error"*/
+/*eslint-env es6*/
+
+class Foo {
+  bar() { }
+  bar() { }
+}
+
+class Foo {
+  bar() { }
+  get bar() { }
+}
+
+class Foo {
+  static bar() { }
+  static bar() { }
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-dupe-class-members: "error"*/
+/*eslint-env es6*/
+
+class Foo {
+  bar() { }
+  qux() { }
+}
+
+class Foo {
+  get bar() { }
+  set bar(value) { }
+}
+
+class Foo {
+  static bar() { }
+  bar() { }
 }
 ```
 **[⬆ 回到顶部](#table-of-contents)**
