@@ -55,34 +55,26 @@
 #### 默认选项 "always" 的 **错误** 代码示例：
 
 ```python
-    /*eslint semi: ["error", "always"]*/
-    
-    var name = "ESLint"
-    
-    object.method = function() {
-        // ...
-    }
+/*eslint semi: ["error", "always"]*/
+
+var name = "ESLint"
+
+object.method = function() {
+    // ...
+}
 ```
 #### 默认选项 "always" 的 正确 代码示例：
 
 ```python
-  /*eslint semi: "error"*/
-    
-    var name = "ESLint";
-    
-    object.method = function() {
-        // ...
-    };
+/*eslint semi: "error"*/
+
+var name = "ESLint";
+
+object.method = function() {
+    // ...
+};
 ```
-
-  `默认选项 "always" 的 正确 代码示例：`
-      
-      
-      
-  
-
-
-
+   
 ### <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
 
 
@@ -90,26 +82,23 @@
   - **选项 "args"**: none - 不检查参数
   - **选项 "ignoreRestSiblings"**: 选项是个布尔类型 (默认: false)。使用 Rest 属性 可能会“省略”对象中的属性，但是默认情况下，其兄弟属性被标记为 “unused”。使用该选项可以使 rest 属性的兄弟属性被忽略。
   
+#### 选项 { "args": "none" } 的 正确 代码示例：
 
-   `选项 { "args": "none" } 的 正确 代码示例：`
+```python
+/*eslint no-unused-vars: ["error", { "args": "none" }]*/
     
-    
-    /*eslint no-unused-vars: ["error", { "args": "none" }]*/
-    
-    (function(foo, bar, baz) {
-        return bar;
-    })();
-  `选项 { "ignoreRestSiblings": true } 的 正确 代码示例：`
+(function(foo, bar, baz) {
+    return bar;
+})();
+```
+#### 选项 { "ignoreRestSiblings": true } 的 正确 代码示例：
+
+```python
+/*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
+// 'type' is ignored because it has a rest property sibling.
+var { type, ...coords } = data;
+```
       
-      
-      /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
-      // 'type' is ignored because it has a rest property sibling.
-      var { type, ...coords } = data;
-  
-
-
-
-
 
 ### <a name="no-console">禁用 console (no-console)</a>
 
@@ -129,54 +118,49 @@
  
  此规则的目的是在 switch 语句中强制声明 default 分支。或者也可以在最后一个 case 分支下，使用 // no default 来表明此处不需要 default 分支。注释可以任何形式出现，比如 // No Default。
  
+#### 错误 代码示例：
 
-   `错误 代码示例：`
-     
-     
-     /*eslint default-case: "error"*/
-     
-     switch (a) {
-         case 1:
-             /* code */
-             break;
-     }
-
-   `正确 代码示例：`
-       
-       
-       /*eslint default-case: "error"*/
-       
-       switch (a) {
-           case 1:
-               /* code */
-               break;
-       
-           default:
-               /* code */
-               break;
-       }
-       
-       
-       switch (a) {
-           case 1:
-               /* code */
-               break;
-       
-           // no default
-       }
-       
-       switch (a) {
-           case 1:
-               /* code */
-               break;
-       
-           // No Default
-       }
-   
+```python
+/*eslint default-case: "error"*/
  
-  
+switch (a) {
+case 1:
+     /* code */
+     break;
+}
+```
+#### 正确 代码示例：
+
+```python
+/*eslint default-case: "error"*/
+         
+switch (a) {
+ case 1:
+     /* code */
+     break;
+
+ default:
+     /* code */
+     break;
+}
 
 
+switch (a) {
+ case 1:
+     /* code */
+     break;
+
+ // no default
+}
+
+switch (a) {
+ case 1:
+     /* code */
+     break;
+
+ // No Default
+}
+```
    
    ### <a name="dot-location">强制在点号之前或之后换行 (dot-location)</a>
    
@@ -184,24 +168,22 @@
    - **选项 "warn"**: 警告提示
    - **选项 "property"**: 表达式中的点号操作符应该和属性在同一行。
    
-   `选项 "property" 的 错误 代码示例：`
+#### 选项 "property" 的 错误 代码示例：
 
-      /*eslint dot-location: ["error", "property"]*/
-      
-      var foo = object.
-      property;
-     
-     
-  `选项 "property" 的 正确 代码示例：`       
-         
-     
-       /*eslint dot-location: ["error", "property"]*/
+```python
+/*eslint dot-location: ["error", "property"]*/
+
+var foo = object.
+property;
+```
+#### 选项 "property" 的 正确 代码示例：
+
+```python
+/*eslint dot-location: ["error", "property"]*/
        
-       var foo = object
-       .property;
-       var bar = object.property;
-     
-   
-
+var foo = object
+.property;
+var bar = object.property;
+```   
    
 **[⬆ 回到顶部](#table-of-contents)**
