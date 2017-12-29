@@ -49,10 +49,7 @@
 
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
 
-
-$$semi: ['error', 'always']$$
-
-
+semi: ['error', 'always']
 
   - **等级 : "error"**
   - **选项 "always"**: (默认) 要求在语句末尾使用分号
@@ -81,9 +78,15 @@ object.method = function() {
 ```
    
 ## <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
+'no-unused-vars': [
+      'warn',
+      {
+        args: 'none',
+        ignoreRestSiblings: true,
+      },
+    ]
 
-
-  - **选项 "warn"**: 警告提示
+  - **等级 : "warn"**
   - **选项 "args"**: none - 不检查参数
   - **选项 "ignoreRestSiblings"**: 选项是个布尔类型 (默认: false)。使用 Rest 属性 可能会“省略”对象中的属性，但是默认情况下，其兄弟属性被标记为 “unused”。使用该选项可以使 rest 属性的兄弟属性被忽略。
   
@@ -106,19 +109,20 @@ var { type, ...coords } = data;
       
 
 ## <a name="no-console">禁用 console (no-console)</a>
-
+'no-console': 'off'
 
   - **选项 "off"**: 禁止禁用
 
 
 
 ## <a name="array-callback-return">强制数组方法的回调函数中有 return 语句 (array-callback-return)</a>
-
+'array-callback-return': 'off'
 
   - **选项 "off"**: 禁止禁用
 
  ## <a name="default-case">要求 Switch 语句中有 Default 分支 (default-case)</a>
- - **选项 "warn"**: 警告提示
+ 'default-case': ['warn', { commentPattern: '^no default$' }]
+ - **等级 : "warn"**
  - **选项 "commentPattern "**: 设置 commentPattern 为一个正则表达式字符串，来改变默认的 /^no default$/i 注释匹配模式
  
  此规则的目的是在 switch 语句中强制声明 default 分支。或者也可以在最后一个 case 分支下，使用 // no default 来表明此处不需要 default 分支。注释可以任何形式出现，比如 // No Default。
@@ -167,11 +171,13 @@ switch (a) {
 }
 ```
    
-   ## <a name="dot-location">强制在点号之前或之后换行 (dot-location)</a>
+## <a name="dot-location">强制在点号之前或之后换行 (dot-location)</a>
    
-   命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
-   - **选项 "warn"**: 警告提示
-   - **选项 "property"**: 表达式中的点号操作符应该和属性在同一行。
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+
+'dot-location': ['warn', 'property']
+- **等级 : "warn"**
+- **选项 "property"**: 表达式中的点号操作符应该和属性在同一行。
    
 ##### 选项 "property" 的 错误 代码示例：
 
