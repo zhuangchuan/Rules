@@ -36,12 +36,12 @@
   1. [禁用迭代器 (no-iterator)](#no-iterator)
   1. [禁用与变量同名的标签 (no-label-var)](#no-label-var)
   1. [禁用标签语句 (no-labels)](#no-labels)
-  1. [no-lone-blocks](#no-lone-blocks)
-  1. [no-loop-func](#no-loop-func)
-  1. [no-mixed-operators](#no-mixed-operators)
-  1. [no-multi-str](#no-multi-str)
-  1. [no-native-reassign](#no-native-reassign)
-  1. [no-negated-in-lhs](#no-negated-in-lhs)
+  1. [禁用不必要的嵌套块 (no-lone-blocks)](#no-lone-blocks)
+  1. [禁止循环中存在函数 (no-loop-func)](#no-loop-func)
+  1. [禁止混合使用不同的操作符 (no-mixed-operators)](#no-mixed-operators)
+  1. [禁止多行字符串 (no-multi-str)](#no-multi-str)
+  1. [禁止重新分配本地对象（no-native-resssign）](#no-native-reassign)
+  1. [不允许在in表达式中否定左操作数（no-negated-in-lhs）](#no-negated-in-lhs)
   
 # 代码规范常见问题
 
@@ -1239,4 +1239,302 @@ label:
     }
 ```
 
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-lone-blocks">禁用不必要的嵌套块 (no-lone-blocks)</a>
+```python
+'no-lone-blocks': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-lone-blocks: "error"*/
+
+{}
+
+if (foo) {
+    bar();
+    {
+        baz();
+    }
+}
+
+function bar() {
+    {
+        baz();
+    }
+}
+
+{
+    function foo() {}
+}
+
+{
+    aLabel: {
+    }
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-lone-blocks: "error"*/
+/*eslint-env es6*/
+
+while (foo) {
+    bar();
+}
+
+if (foo) {
+    if (bar) {
+        baz();
+    }
+}
+
+function bar() {
+    baz();
+}
+
+{
+    let x = 1;
+}
+
+{
+    const y = 1;
+}
+
+{
+    class Foo {}
+}
+
+aLabel: {
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-loop-func">禁止循环中存在函数 (no-loop-func)</a>
+```python
+'no-loop-func': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-loop-func: "error"*/
+/*eslint-env es6*/
+
+for (var i=10; i; i--) {
+    (function() { return i; })();
+}
+
+while(i) {
+    var a = function() { return i; };
+    a();
+}
+
+do {
+    function a() { return i; };
+    a();
+} while (i);
+
+let foo = 0;
+for (let i=10; i; i--) {
+    // Bad, function is referencing block scoped variable in the outer scope.
+    var a = function() { return foo; };
+    a();
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-loop-func: "error"*/
+/*eslint-env es6*/
+
+var a = function() {};
+
+for (var i=10; i; i--) {
+    a();
+}
+
+for (var i=10; i; i--) {
+    var a = function() {}; // OK, no references to variables in the outer scopes.
+    a();
+}
+
+for (let i=10; i; i--) {
+    var a = function() { return i; }; // OK, all references are referring to block scoped variables in the loop.
+    a();
+}
+
+var foo = 100;
+for (let i=10; i; i--) {
+    var a = function() { return foo; }; // OK, all references are referring to never modified variables.
+    a();
+}
+//... no modifications of foo after this loop ...
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-mixed-operators">禁止混合使用不同的操作符 (no-mixed-operators)</a>
+```python
+'no-mixed-operators': [
+      'warn',
+      {
+        groups: [
+          ['&', '|', '^', '~', '<<', '>>', '>>>'],
+          ['==', '!=', '===', '!==', '>', '>=', '<', '<='],
+          ['&&', '||'],
+          ['in', 'instanceof'],
+        ],
+        allowSamePrecedence: false,
+      },
+    ]
+```
+
+- **等级 : "warn"**
+- **选项 "groups "**:  (string[][]) - 指定要比较的操作符分组。 当该规则比较两个操作符时，，如果操作符在同一分组内，该规则会进行检查。否则这规则忽略它。它值是个列表组。这个组是二元操作符列表。默认为各种操作符的组。 
+
+- **选项 "allowSamePrecedence  "**:  (boolean) - 指定允许使用混合的两个操作符，前提是它们有同样的优先级。 默认为 true.
+
+##### 选项 {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]} 的 错误 代码示例：
+
+```python
+/*eslint no-mixed-operators: ["error", {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]}]*/
+
+var foo = a && b < 0 || c > 0 || d + 1 === 0;
+var foo = a & b | c;
+```
+
+##### 选项 {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]} 的 正确 代码示例：
+
+```python
+/*eslint no-mixed-operators: ["error", {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]}]*/
+
+var foo = a || b > 0 || c + 1 === 0;
+var foo = a && b > 0 && c + 1 === 0;
+var foo = (a && b < 0) || c > 0 || d + 1 === 0;
+var foo = a && (b < 0 ||  c > 0 || d + 1 === 0);
+var foo = (a & b) | c;
+var foo = a & (b | c);
+var foo = a + b * c;
+var foo = a + (b * c);
+var foo = (a + b) * c;
+```
+
+##### 选项 {"allowSamePrecedence": false} 的 错误 代码示例：
+
+```python
+/*eslint no-mixed-operators: ["error", {"allowSamePrecedence": false}]*/
+
+// + and - have the same precedence.
+var foo = a + b - c;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-multi-str">禁止多行字符串 (no-multi-str)</a>
+```python
+'no-multi-str': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-multi-str: "error"*/
+var x = "Line 1 \
+         Line 2";
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-multi-str: "error"*/
+
+var x = "Line 1\n" +
+        "Line 2";
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-native-resssign">禁止重新分配本地对象（no-native-resssign）</a>
+此规则在ESLint v3.3.0 中已弃用，并由no-global-assign规则取代。
+```python
+'no-native-reassign': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-native-reassign: "error"*/
+
+Object = null
+undefined = 1
+/*eslint no-native-reassign: "error"*/
+/*eslint-env browser*/
+
+window = {}
+length = 1
+top = 1
+/*eslint no-native-reassign: "error"*/
+/*globals a:false*/
+
+a = 1
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-native-reassign: "error"*/
+
+a = 1
+var b = 1
+b = 2
+/*eslint no-native-reassign: "error"*/
+/*eslint-env browser*/
+
+onload = function() {}
+/*eslint no-native-reassign: "error"*/
+/*globals a:true*/
+
+a = 1
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-negated-in-lhs">不允许在in表达式中否定左操作数（no-negated-in-lhs）</a>
+这个规则在ESLint v3.3.0中被弃用，并被no-unsafe-negation取代。
+```python
+'no-negated-in-lhs': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-negated-in-lhs: "error"*/
+
+if(!key in object) {
+    // operator precedence makes it equivalent to (!key) in object
+    // and type conversion makes it equivalent to (key ? "false" : "true") in object
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-negated-in-lhs: "error"*/
+
+if(!(key in object)) {
+    // key is not in object
+}
+
+if(('' + !key) in object) {
+    // make operator precedence and type conversion explicit
+    // in a rare situation when that is the intended meaning
+}
+```
 **[⬆ 回到顶部](#table-of-contents)**
