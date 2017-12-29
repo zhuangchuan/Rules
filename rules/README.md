@@ -10,7 +10,38 @@
   1. [强制数组方法的回调函数中有 return 语句 (array-callback-return)](#array-callback-return)
   1. [要求 Switch 语句中有 Default 分支 (default-case)](#default-case)
   1. [强制在点号之前或之后换行 (dot-location)](#dot-location)
-
+  1. [eqeqeq](#eqeqeq)
+  1. [new-parens](#new-parens)
+  1. [no-array-constructor](#no-array-constructor)
+  1. [no-caller](#no-caller)
+  1. [no-cond-assign](#no-cond-assign)
+  1. [no-const-assign](#no-const-assign)
+  1. [no-control-regex](#no-control-regex)
+  1. [no-delete-var](#no-delete-var)
+  1. [no-dupe-args](#no-dupe-args)
+  1. [no-dupe-class-members](#no-dupe-class-members)
+  1. [no-dupe-keys](#no-dupe-keys)
+  1. [no-duplicate-case](#no-duplicate-case)
+  1. [no-empty-character-class](#no-empty-character-class)
+  1. [no-empty-pattern](#no-empty-pattern)
+  1. [no-eval](#no-eval)
+  1. [no-ex-assign](#no-ex-assign)
+  1. [no-extend-native](#no-extend-native)
+  1. [no-extra-bind](#no-extra-bind)
+  1. [no-extra-label](#no-extra-label)
+  1. [no-fallthrough](#no-fallthrough)
+  1. [no-func-assign](#no-func-assign)
+  1. [no-implied-eval](#no-implied-eval)
+  1. [no-invalid-regexp](#no-invalid-regexp)
+  1. [no-iterator](#no-iterator)
+  1. [no-label-var](#no-label-var)
+  1. [no-labels](#no-labels)
+  1. [no-lone-blocks](#no-lone-blocks)
+  1. [no-loop-func](#no-loop-func)
+  1. [no-mixed-operators](#no-mixed-operators)
+  1. [no-multi-str](#no-multi-str)
+  1. [no-native-reassign](#no-native-reassign)
+  1. [no-negated-in-lhs](#no-negated-in-lhs)
   
 ## 代码规范常见问题
 
@@ -21,9 +52,9 @@
   - **选项 "error"**: 错误提示
   - **选项 "always"**: (默认) 要求在语句末尾使用分号
 
-   `默认选项 "always" 的 错误 代码示例：`
-       
-    
+#### 默认选项 "always" 的 **错误** 代码示例：
+
+```python
     /*eslint semi: ["error", "always"]*/
     
     var name = "ESLint"
@@ -31,31 +62,26 @@
     object.method = function() {
         // ...
     }
+```
+#### 默认选项 "always" 的 正确 代码示例：
+
+```python
+  /*eslint semi: "error"*/
+    
+    var name = "ESLint";
+    
+    object.method = function() {
+        // ...
+    };
+```
+
   `默认选项 "always" 的 正确 代码示例：`
       
       
-      /*eslint semi: "error"*/
       
-      var name = "ESLint";
-      
-      object.method = function() {
-          // ...
-      };
   
 
 
-
-### 3. 高亮一段代码[^code]
-
-```python
-@requires_authorization  
-class SomeClass:
-    pass
-
-if __name__ == '__main__':
-    # A comment
-    print 'hello world'
-```
 
 ### <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
 
