@@ -48,7 +48,7 @@
 ## <a name="semi">要求或禁止使用分号代替 ASI (semi)</a>
 
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
-```python
+```javascript
 semi: ['error', 'always']
 ```
 
@@ -58,7 +58,7 @@ semi: ['error', 'always']
 
 ##### 默认选项 "always" 的 <font color=#f00>错误</font> 代码示例：
 
-```python
+```javascript
 /*eslint semi: ["error", "always"]*/
 
 var name = "ESLint"
@@ -69,7 +69,7 @@ object.method = function() {
 ```
 ##### 默认选项 "always" 的 正确 代码示例：
 
-```python
+```javascript
 /*eslint semi: "error"*/
 
 var name = "ESLint";
@@ -81,7 +81,7 @@ object.method = function() {
 **[⬆ 回到顶部](#table-of-contents)**
    
 ## <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
-```python
+```javascript
 'no-unused-vars': [
   'warn',
   {
@@ -96,7 +96,7 @@ object.method = function() {
   
 ##### 选项 { "args": "none" } 的 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
     
 (function(foo, bar, baz) {
@@ -105,7 +105,7 @@ object.method = function() {
 ```
 ##### 选项 { "ignoreRestSiblings": true } 的 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 // 'type' is ignored because it has a rest property sibling.
 var { type, ...coords } = data;
@@ -113,7 +113,7 @@ var { type, ...coords } = data;
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-console">禁用 console (no-console)</a>
-```python
+```javascript
 'no-console': 'off'
 ```
 - **选项 "off"**: 关闭禁用
@@ -121,7 +121,7 @@ var { type, ...coords } = data;
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="array-callback-return">强制数组方法的回调函数中有 return 语句 (array-callback-return)</a>
-```python
+```javascript
 'array-callback-return': 'off'
 ```
 - **选项 "off"**: 关闭禁用
@@ -129,7 +129,7 @@ var { type, ...coords } = data;
 **[⬆ 回到顶部](#table-of-contents)**
 
  ## <a name="default-case">要求 Switch 语句中有 Default 分支 (default-case)</a>
- ```python
+ ```javascript
  'default-case': ['warn', { commentPattern: '^no default$' }]
  ```
  - **等级 : "warn"**
@@ -139,7 +139,7 @@ var { type, ...coords } = data;
  
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint default-case: "error"*/
  
 switch (a) {
@@ -150,7 +150,7 @@ case 1:
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint default-case: "error"*/
          
 switch (a) {
@@ -185,7 +185,7 @@ switch (a) {
 ## <a name="dot-location">强制在点号之前或之后换行 (dot-location)</a>
    
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
- ```python
+ ```javascript
 'dot-location': ['warn', 'property']
  ```
 
@@ -194,7 +194,7 @@ switch (a) {
    
 ##### 选项 "property" 的 错误 代码示例：
 
-```python
+```javascript
 /*eslint dot-location: ["error", "property"]*/
 
 var foo = object.
@@ -202,7 +202,7 @@ property;
 ```
 ##### 选项 "property" 的 正确 代码示例：
 
-```python
+```javascript
 /*eslint dot-location: ["error", "property"]*/
        
 var foo = object
@@ -215,7 +215,7 @@ var bar = object.property;
 ## <a name="eqeqeq">要求使用 === 和 !== (eqeqeq)</a>
    
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
- ```python
+ ```javascript
 eqeqeq: ['warn', 'allow-null']
  ```
 
@@ -227,7 +227,7 @@ eqeqeq: ['warn', 'allow-null']
 ## <a name="new-parens">要求调用无参构造函数时带括号 (new-parens)</a>
 
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
-```python
+```javascript
 'new-parens': 'warn'
 ```
 
@@ -236,7 +236,7 @@ eqeqeq: ['warn', 'allow-null']
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint new-parens: "error"*/
 
 var person = new Person;
@@ -244,7 +244,7 @@ var person = new (Person);
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint new-parens: "error"*/
 
 var person = new Person();
@@ -254,7 +254,7 @@ var person = new (Person)();
 
 ## <a name="no-array-constructor">禁止使用 Array 构造函数 (no-array-constructor)</a>
 
-```python
+```javascript
 'no-array-constructor': 'warn'
 ```
 
@@ -262,7 +262,7 @@ var person = new (Person)();
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-array-constructor: "error"*/
 
 Array(0, 1, 2)
@@ -272,7 +272,7 @@ new Array(0, 1, 2)
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-array-constructor: "error"*/
 
 Array(500)
@@ -284,7 +284,7 @@ new Array(someOtherArray.length)
 
 ## <a name="no-caller">禁用 caller 或 callee (no-caller)</a>
 
-```python
+```javascript
 'no-caller': 'warn'
 ```
 
@@ -292,7 +292,7 @@ new Array(someOtherArray.length)
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-caller: "error"*/
 
 function foo(n) {
@@ -309,7 +309,7 @@ function foo(n) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-caller: "error"*/
 
 function foo(n) {
@@ -328,7 +328,7 @@ function foo(n) {
 
 ## <a name="no-cond-assign">禁止在条件语句中出现赋值操作符（no-cond-assign）</a>
 
-```python
+```javascript
 'no-cond-assign': ['warn', 'always']
 ```
 
@@ -336,7 +336,7 @@ function foo(n) {
 - **选项 "always"**: 禁止条件语句中出现赋值语句。
 ##### 选项 "always" 的 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-cond-assign: ["error", "always"]*/
 
 // Unintentional assignment
@@ -371,7 +371,7 @@ function setHeight(someNode) {
 ```
 ##### 选项 "always" 的 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-cond-assign: ["error", "always"]*/
 
 // Assignment replaced by comparison
@@ -384,7 +384,7 @@ if (x === 0) {
 
 ## <a name="no-const-assign">不允许改变用const声明的变量 (no-const-assign)</a>
 
-```python
+```javascript
 'no-const-assign': 'warn'
 ```
 
@@ -392,7 +392,7 @@ if (x === 0) {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-const-assign: "error"*/
 /*eslint-env es6*/
 
@@ -411,7 +411,7 @@ const a = 0;
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-const-assign: "error"*/
 /*eslint-env es6*/
 
@@ -434,7 +434,7 @@ for (const a of [1, 2, 3]) { // `a` is re-defined (not modified) on each loop st
 
 ## <a name="no-control-regex">禁止在正则表达式中使用控制字符（no-control-regex）</a>
 
-```python
+```javascript
 'no-control-regex': 'warn'
 ```
 
@@ -442,7 +442,7 @@ for (const a of [1, 2, 3]) { // `a` is re-defined (not modified) on each loop st
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-control-regex: "error"*/
 
 var pattern1 = /\x1f/;
@@ -450,7 +450,7 @@ var pattern2 = new RegExp("\x1f");
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-control-regex: "error"*/
 
 var pattern1 = /\x20/;
@@ -460,7 +460,7 @@ var pattern2 = new RegExp("\x20");
 
 ## <a name="no-delete-var">禁止删除变量 (no-delete-var)</a>
 
-```python
+```javascript
 'no-delete-var': 'warn'
 ```
 
@@ -468,7 +468,7 @@ var pattern2 = new RegExp("\x20");
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-delete-var: "error"*/
 
 var x;
@@ -479,7 +479,7 @@ delete x;
 
 ## <a name="no-dupe-args">禁止在 function 定义中出现重复的参数 (no-dupe-args)</a>
 
-```python
+```javascript
 'no-dupe-args': 'warn'
 ```
 
@@ -487,7 +487,7 @@ delete x;
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-dupe-args: "error"*/
 
 function foo(a, b, a) {
@@ -500,7 +500,7 @@ var bar = function (a, b, a) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-dupe-args: "error"*/
 
 function foo(a, b, c) {
@@ -515,7 +515,7 @@ var bar = function (a, b, c) {
 
 ## <a name="no-dupe-class-members">不允许类成员中有重复的名称 (no-dupe-class-members)</a>
 
-```python
+```javascript
 'no-dupe-class-members': 'warn'
 ```
 
@@ -523,7 +523,7 @@ var bar = function (a, b, c) {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-dupe-class-members: "error"*/
 /*eslint-env es6*/
 
@@ -544,7 +544,7 @@ class Foo {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-dupe-class-members: "error"*/
 /*eslint-env es6*/
 
@@ -567,7 +567,7 @@ class Foo {
 
 ## <a name="no-dupe-keys">禁止在对象字面量中出现重复的键 (no-dupe-keys)</a>
 
-```python
+```javascript
 'no-dupe-keys': 'warn'
 ```
 
@@ -575,7 +575,7 @@ class Foo {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-dupe-keys: "error"*/
 
 var foo = {
@@ -595,7 +595,7 @@ var foo = {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-dupe-keys: "error"*/
 
 var foo = {
@@ -607,7 +607,7 @@ var foo = {
 
 ## <a name="no-duplicate-case">禁止重复 case 标签（no-duplicate-case）</a>
 
-```python
+```javascript
 'no-duplicate-case': 'warn'
 ```
 
@@ -615,7 +615,7 @@ var foo = {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-duplicate-case: "error"*/
 
 var a = 1,
@@ -656,7 +656,7 @@ switch (a) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-duplicate-case: "error"*/
 
 var a = 1,
@@ -699,7 +699,7 @@ switch (a) {
 
 ## <a name="no-empty-character-class">禁止在正则表达式中出现空字符集 (no-empty-character-class)</a>
 
-```python
+```javascript
 'no-empty-character-class': 'warn'
 ```
 
@@ -707,7 +707,7 @@ switch (a) {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-empty-character-class: "error"*/
 
 /^abc[]/.test("abcdefg"); // false
@@ -715,7 +715,7 @@ switch (a) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-empty-character-class: "error"*/
 
 /^abc/.test("abcdefg"); // true
@@ -728,7 +728,7 @@ switch (a) {
 
 ## <a name="no-empty-pattern">禁止使用空解构模式 (no-empty-pattern)</a>
 
-```python
+```javascript
 'no-empty-pattern': 'warn'
 ```
 
@@ -736,7 +736,7 @@ switch (a) {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-empty-pattern: "error"*/
 
 var {} = foo;
@@ -750,7 +750,7 @@ function foo({a: []}) {}
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-empty-pattern: "error"*/
 
 var {a = {}} = foo;
@@ -762,7 +762,7 @@ function foo({a = []}) {}
 
 ## <a name="no-eval">禁用 eval()（no-eval）</a>
 
-```python
+```javascript
 'no-eval': 'warn'
 ```
 
@@ -770,7 +770,7 @@ function foo({a = []}) {}
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-eval: "error"*/
 
 var obj = { x: "foo" },
@@ -787,7 +787,7 @@ this.eval("var a = 0");
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-eval: "error"*/
 /*eslint-env es6*/
 
@@ -809,7 +809,7 @@ class A {
 
 ## <a name="no-ex-assign">禁止对 catch 子句中的异常重新赋值 (no-ex-assign)</a>
 
-```python
+```javascript
 'no-ex-assign': 'warn'
 ```
 
@@ -817,7 +817,7 @@ class A {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-ex-assign: "error"*/
 
 try {
@@ -828,7 +828,7 @@ try {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-ex-assign: "error"*/
 
 try {
@@ -841,7 +841,7 @@ try {
 
 ## <a name="no-extend-native">禁止扩展原生对象 (no-extend-native)</a>
 
-```python
+```javascript
 'no-extend-native': 'warn'
 ```
 
@@ -849,7 +849,7 @@ try {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-extend-native: "error"*/
 
 Object.prototype.a = "a";
@@ -860,7 +860,7 @@ Object.defineProperty(Array.prototype, "times", { value: 999 });
 
 ## <a name="no-extra-bind">禁止不必要的函数绑定 (no-extra-bind)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
-```python
+```javascript
 'no-extra-bind': 'warn'
 ```
 
@@ -868,7 +868,7 @@ Object.defineProperty(Array.prototype, "times", { value: 999 });
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-extra-bind: "error"*/
 /*eslint-env es6*/
 
@@ -898,7 +898,7 @@ var x = function () {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-extra-bind: "error"*/
 
 var x = function () {
@@ -913,7 +913,7 @@ var x = function (a) {
 
 ## <a name="no-extra-label">禁用不必要的标签 (no-extra-label)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
-```python
+```javascript
 'no-extra-label': 'warn'
 ```
 
@@ -921,7 +921,7 @@ var x = function (a) {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-extra-label: "error"*/
 
 A: while (a) {
@@ -939,7 +939,7 @@ C: switch (a) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-extra-label: "error"*/
 
 while (a) {
@@ -976,7 +976,7 @@ C: switch (a) {
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-fallthrough">禁止 case 语句落空 (no-fallthrough)</a>
-```python
+```javascript
 'no-fallthrough': 'warn'
 ```
 
@@ -984,7 +984,7 @@ C: switch (a) {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-fallthrough: "error"*/
 
 switch(foo) {
@@ -997,7 +997,7 @@ switch(foo) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-fallthrough: "error"*/
 
 switch(foo) {
@@ -1047,7 +1047,7 @@ switch(foo) {
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-func-assign">禁止对 function 声明重新赋值 (no-func-assign)</a>
-```python
+```javascript
 'no-func-assign': 'warn'
 ```
 
@@ -1055,7 +1055,7 @@ switch(foo) {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-func-assign: "error"*/
 
 function foo() {}
@@ -1067,7 +1067,7 @@ function foo() {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-func-assign: "error"*/
 
 var foo = function () {}
@@ -1084,7 +1084,7 @@ function foo() {
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-implied-eval">禁用隐式的eval() (no-implied-eval)</a>
-```python
+```javascript
 'no-implied-eval': 'warn'
 ```
 
@@ -1092,7 +1092,7 @@ function foo() {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-implied-eval: "error"*/
 
 setTimeout("alert('Hi!');", 100);
@@ -1107,7 +1107,7 @@ window.setInterval("foo = bar", 10);
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-implied-eval: "error"*/
 
 setTimeout(function() {
@@ -1121,7 +1121,7 @@ setInterval(function() {
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-invalid-regexp">禁止在 RegExp 构造函数中出现无效的正则表达式 (no-invalid-regexp)</a>
-```python
+```javascript
 'no-invalid-regexp': 'warn'
 ```
 
@@ -1129,7 +1129,7 @@ setInterval(function() {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-invalid-regexp: "error"*/
 
 RegExp('[')
@@ -1140,7 +1140,7 @@ new RegExp('\\')
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-invalid-regexp: "error"*/
 
 RegExp('.')
@@ -1152,7 +1152,7 @@ this.RegExp('[')
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-iterator">禁用迭代器 (no-iterator)</a>
-```python
+```javascript
 'no-iterator': 'warn'
 ```
 
@@ -1160,7 +1160,7 @@ this.RegExp('[')
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-iterator: "error"*/
 
 Foo.prototype.__iterator__ = function() {
@@ -1173,7 +1173,7 @@ foo["__iterator__"] = function () {};
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-iterator: "error"*/
 
 var __iterator__ = foo; // Not using the `__iterator__` property.
@@ -1181,7 +1181,7 @@ var __iterator__ = foo; // Not using the `__iterator__` property.
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-label-var">禁用与变量同名的标签 (no-label-var)</a>
-```python
+```javascript
 'no-label-var': 'warn'
 ```
 
@@ -1189,7 +1189,7 @@ var __iterator__ = foo; // Not using the `__iterator__` property.
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-label-var: "error"*/
 
 var x = foo;
@@ -1202,7 +1202,7 @@ x:
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-label-var: "error"*/
 
 // The variable that has the same name as the label is not in scope.
@@ -1221,7 +1221,7 @@ q:
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-labels">禁用标签语句 (no-labels)</a>
-```python
+```javascript
 'no-labels': ['warn', { allowLoop: true, allowSwitch: false }]
 ```
 
@@ -1230,7 +1230,7 @@ q:
 
 ##### 选项 { "allowLoop": true } 的 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-labels: ["error", { "allowLoop": true }]*/
 
 label:
@@ -1242,7 +1242,7 @@ label:
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-lone-blocks">禁用不必要的嵌套块 (no-lone-blocks)</a>
-```python
+```javascript
 'no-lone-blocks': 'warn'
 ```
 
@@ -1250,7 +1250,7 @@ label:
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-lone-blocks: "error"*/
 
 {}
@@ -1279,7 +1279,7 @@ function bar() {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-lone-blocks: "error"*/
 /*eslint-env es6*/
 
@@ -1315,7 +1315,7 @@ aLabel: {
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-loop-func">禁止循环中存在函数 (no-loop-func)</a>
-```python
+```javascript
 'no-loop-func': 'warn'
 ```
 
@@ -1323,7 +1323,7 @@ aLabel: {
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-loop-func: "error"*/
 /*eslint-env es6*/
 
@@ -1350,7 +1350,7 @@ for (let i=10; i; i--) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-loop-func: "error"*/
 /*eslint-env es6*/
 
@@ -1380,7 +1380,7 @@ for (let i=10; i; i--) {
 **[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-mixed-operators">禁止混合使用不同的操作符 (no-mixed-operators)</a>
-```python
+```javascript
 'no-mixed-operators': [
       'warn',
       {
@@ -1402,7 +1402,7 @@ for (let i=10; i; i--) {
 
 ##### 选项 {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]} 的 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-mixed-operators: ["error", {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]}]*/
 
 var foo = a && b < 0 || c > 0 || d + 1 === 0;
@@ -1411,7 +1411,7 @@ var foo = a & b | c;
 
 ##### 选项 {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]} 的 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-mixed-operators: ["error", {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]}]*/
 
 var foo = a || b > 0 || c + 1 === 0;
@@ -1427,7 +1427,7 @@ var foo = (a + b) * c;
 
 ##### 选项 {"allowSamePrecedence": false} 的 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-mixed-operators: ["error", {"allowSamePrecedence": false}]*/
 
 // + and - have the same precedence.
@@ -1437,7 +1437,7 @@ var foo = a + b - c;
 
 
 ## <a name="no-multi-str">禁止多行字符串 (no-multi-str)</a>
-```python
+```javascript
 'no-multi-str': 'warn'
 ```
 
@@ -1445,14 +1445,14 @@ var foo = a + b - c;
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-multi-str: "error"*/
 var x = "Line 1 \
          Line 2";
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-multi-str: "error"*/
 
 var x = "Line 1\n" +
@@ -1462,7 +1462,7 @@ var x = "Line 1\n" +
 
 ## <a name="no-native-resssign">禁止重新分配本地对象（no-native-resssign）</a>
 此规则在ESLint v3.3.0 中已弃用，并由no-global-assign规则取代。
-```python
+```javascript
 'no-native-reassign': 'warn'
 ```
 
@@ -1470,7 +1470,7 @@ var x = "Line 1\n" +
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-native-reassign: "error"*/
 
 Object = null
@@ -1488,7 +1488,7 @@ a = 1
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-native-reassign: "error"*/
 
 a = 1
@@ -1507,7 +1507,7 @@ a = 1
 
 ## <a name="no-negated-in-lhs">不允许在in表达式中否定左操作数（no-negated-in-lhs）</a>
 这个规则在ESLint v3.3.0中被弃用，并被no-unsafe-negation取代。
-```python
+```javascript
 'no-negated-in-lhs': 'warn'
 ```
 
@@ -1515,7 +1515,7 @@ a = 1
 
 ##### 错误 代码示例：
 
-```python
+```javascript
 /*eslint no-negated-in-lhs: "error"*/
 
 if(!key in object) {
@@ -1525,7 +1525,7 @@ if(!key in object) {
 ```
 ##### 正确 代码示例：
 
-```python
+```javascript
 /*eslint no-negated-in-lhs: "error"*/
 
 if(!(key in object)) {
