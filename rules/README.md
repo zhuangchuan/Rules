@@ -49,7 +49,10 @@
 
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
 
-semi: ['error', 'always']
+
+$$semi: ['error', 'always']$$
+
+
 
   - **等级 : "error"**
   - **选项 "always"**: (默认) 要求在语句末尾使用分号
