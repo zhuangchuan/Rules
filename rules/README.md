@@ -25,13 +25,13 @@
   1. [禁止在正则表达式中出现空字符集 (no-empty-character-class)](#no-empty-character-class)
   1. [禁止使用空解构模式 (no-empty-pattern)](#no-empty-pattern)
   1. [禁用 eval()（no-eval）](#no-eval)
-  1. [no-ex-assign](#no-ex-assign)
-  1. [no-extend-native](#no-extend-native)
-  1. [no-extra-bind](#no-extra-bind)
-  1. [no-extra-label](#no-extra-label)
-  1. [no-fallthrough](#no-fallthrough)
-  1. [no-func-assign](#no-func-assign)
-  1. [no-implied-eval](#no-implied-eval)
+  1. [禁止对 catch 子句中的异常重新赋值 (no-ex-assign)](#no-ex-assign)
+  1. [禁止扩展原生对象 (no-extend-native)](#no-extend-native)
+  1. [禁止不必要的函数绑定 (no-extra-bind)](#no-extra-bind)
+  1. [禁用不必要的标签 (no-extra-label)](#no-extra-label)
+  1. [禁止 case 语句落空 (no-fallthrough)](#no-fallthrough)
+  1. [禁止对 function 声明重新赋值 (no-func-assign)](#no-func-assign)
+  1. [禁用隐式的eval() (no-implied-eval)](#no-implied-eval)
   1. [no-invalid-regexp](#no-invalid-regexp)
   1. [no-iterator](#no-iterator)
   1. [no-label-var](#no-label-var)
@@ -804,5 +804,318 @@ class A {
     eval() {
     }
 }
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-ex-assign">禁止对 catch 子句中的异常重新赋值 (no-ex-assign)</a>
+
+```python
+'no-ex-assign': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-ex-assign: "error"*/
+
+try {
+    // code
+} catch (e) {
+    e = 10;
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-ex-assign: "error"*/
+
+try {
+    // code
+} catch (e) {
+    var foo = 10;
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-extend-native">禁止扩展原生对象 (no-extend-native)</a>
+
+```python
+'no-extend-native': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-extend-native: "error"*/
+
+Object.prototype.a = "a";
+Object.defineProperty(Array.prototype, "times", { value: 999 });
+```
+
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-extra-bind">禁止不必要的函数绑定 (no-extra-bind)</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+```python
+'no-extra-bind': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-extra-bind: "error"*/
+/*eslint-env es6*/
+
+var x = function () {
+    foo();
+}.bind(bar);
+
+var x = (() => {
+    foo();
+}).bind(bar);
+
+var x = (() => {
+    this.foo();
+}).bind(bar);
+
+var x = function () {
+    (function () {
+      this.foo();
+    }());
+}.bind(bar);
+
+var x = function () {
+    function foo() {
+      this.bar();
+    }
+}.bind(baz);
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-extra-bind: "error"*/
+
+var x = function () {
+    this.foo();
+}.bind(bar);
+
+var x = function (a) {
+    return a + 1;
+}.bind(foo, bar);
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-extra-label">禁用不必要的标签 (no-extra-label)</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+```python
+'no-extra-label': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-extra-label: "error"*/
+
+A: while (a) {
+    break A;
+}
+
+B: for (let i = 0; i < 10; ++i) {
+    break B;
+}
+
+C: switch (a) {
+    case 0:
+        break C;
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-extra-label: "error"*/
+
+while (a) {
+    break;
+}
+
+for (let i = 0; i < 10; ++i) {
+    break;
+}
+
+switch (a) {
+    case 0:
+        break;
+}
+
+A: {
+    break A;
+}
+
+B: while (a) {
+    while (b) {
+        break B;
+    }
+}
+
+C: switch (a) {
+    case 0:
+        while (b) {
+            break C;
+        }
+        break;
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-fallthrough">禁止 case 语句落空 (no-fallthrough)</a>
+```python
+'no-fallthrough': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-fallthrough: "error"*/
+
+switch(foo) {
+    case 1:
+        doSomething();
+
+    case 2:
+        doSomething();
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-fallthrough: "error"*/
+
+switch(foo) {
+    case 1:
+        doSomething();
+        break;
+
+    case 2:
+        doSomething();
+}
+
+function bar(foo) {
+    switch(foo) {
+        case 1:
+            doSomething();
+            return;
+
+        case 2:
+            doSomething();
+    }
+}
+
+switch(foo) {
+    case 1:
+        doSomething();
+        throw new Error("Boo!");
+
+    case 2:
+        doSomething();
+}
+
+switch(foo) {
+    case 1:
+    case 2:
+        doSomething();
+}
+
+switch(foo) {
+    case 1:
+        doSomething();
+        // falls through
+
+    case 2:
+        doSomething();
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-func-assign">禁止对 function 声明重新赋值 (no-func-assign)</a>
+```python
+'no-func-assign': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-func-assign: "error"*/
+
+function foo() {}
+foo = bar;
+
+function foo() {
+    foo = bar;
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-func-assign: "error"*/
+
+var foo = function () {}
+foo = bar;
+
+function foo(foo) { // `foo` is shadowed.
+    foo = bar;
+}
+
+function foo() {
+    var foo = bar;  // `foo` is shadowed.
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-implied-eval">禁用隐式的eval() (no-implied-eval)</a>
+```python
+'no-implied-eval': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-implied-eval: "error"*/
+
+setTimeout("alert('Hi!');", 100);
+
+setInterval("alert('Hi!');", 100);
+
+execScript("alert('Hi!')");
+
+window.setTimeout("count = 5", 10);
+
+window.setInterval("foo = bar", 10);
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-implied-eval: "error"*/
+
+setTimeout(function() {
+    alert("Hi!");
+}, 100);
+
+setInterval(function() {
+    alert("Hi!");
+}, 100);
 ```
 **[⬆ 回到顶部](#table-of-contents)**
