@@ -56,7 +56,7 @@ semi: ['error', 'always']
   - **等级 : "error"**
   - **选项 "always"**: (默认) 要求在语句末尾使用分号
 
-##### 默认选项 "always" 的 ** <font color=#f00>错误</font> ** 代码示例：
+##### 默认选项 "always" 的 <font color=#f00>错误</font> 代码示例：
 
 ```python
 /*eslint semi: ["error", "always"]*/
