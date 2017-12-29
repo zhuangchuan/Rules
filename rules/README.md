@@ -10,7 +10,7 @@
   1. [强制数组方法的回调函数中有 return 语句 (array-callback-return)](#array-callback-return)
   1. [要求 Switch 语句中有 Default 分支 (default-case)](#default-case)
   1. [强制在点号之前或之后换行 (dot-location)](#dot-location)
-  1. [eqeqeq](#eqeqeq)
+  1. [要求使用 === 和 !== (eqeqeq)](#eqeqeq)
   1. [new-parens](#new-parens)
   1. [no-array-constructor](#no-array-constructor)
   1. [no-caller](#no-caller)
@@ -78,6 +78,7 @@ object.method = function() {
     // ...
 };
 ```
+**[⬆ 回到顶部](#table-of-contents)**
    
 ## <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
 ```python
@@ -109,18 +110,23 @@ object.method = function() {
 // 'type' is ignored because it has a rest property sibling.
 var { type, ...coords } = data;
 ```
+**[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="no-console">禁用 console (no-console)</a>
 ```python
 'no-console': 'off'
 ```
-- **选项 "off"**: 禁止禁用
+- **选项 "off"**: 关闭禁用
+
+**[⬆ 回到顶部](#table-of-contents)**
 
 ## <a name="array-callback-return">强制数组方法的回调函数中有 return 语句 (array-callback-return)</a>
 ```python
 'array-callback-return': 'off'
 ```
-- **选项 "off"**: 禁止禁用
+- **选项 "off"**: 关闭禁用
+
+**[⬆ 回到顶部](#table-of-contents)**
 
  ## <a name="default-case">要求 Switch 语句中有 Default 分支 (default-case)</a>
  ```python
@@ -174,6 +180,7 @@ switch (a) {
  // No Default
 }
 ```
+**[⬆ 回到顶部](#table-of-contents)**
    
 ## <a name="dot-location">强制在点号之前或之后换行 (dot-location)</a>
    
@@ -185,7 +192,7 @@ switch (a) {
 - **等级 : "warn"**
 - **选项 "property"**: 表达式中的点号操作符应该和属性在同一行。
    
-##### 选项 "property" 的 <font color=#f00>错误</font> 代码示例：
+##### 选项 "property" 的 错误 代码示例：
 
 ```python
 /*eslint dot-location: ["error", "property"]*/
@@ -202,5 +209,17 @@ var foo = object
 .property;
 var bar = object.property;
 ```   
+   
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="eqeqeq">要求使用 === 和 !== (eqeqeq)</a>
+   
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+ ```python
+eqeqeq: ['warn', 'allow-null']
+ ```
+
+- **等级 : "warn"**
+- **选项 "allow-null"**: 使用 “always”，然后传一个 “null” 选项，属性值为 “ignore” 代替。这将告诉 eslint 除了与 null 字面量进行比较时，总是强制使用绝对相等。
    
 **[⬆ 回到顶部](#table-of-contents)**
