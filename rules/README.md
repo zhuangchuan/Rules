@@ -32,10 +32,10 @@
   1. [禁止 case 语句落空 (no-fallthrough)](#no-fallthrough)
   1. [禁止对 function 声明重新赋值 (no-func-assign)](#no-func-assign)
   1. [禁用隐式的eval() (no-implied-eval)](#no-implied-eval)
-  1. [no-invalid-regexp](#no-invalid-regexp)
-  1. [no-iterator](#no-iterator)
-  1. [no-label-var](#no-label-var)
-  1. [no-labels](#no-labels)
+  1. [禁止在 RegExp 构造函数中出现无效的正则表达式 (no-invalid-regexp)](#no-invalid-regexp)
+  1. [禁用迭代器 (no-iterator)](#no-iterator)
+  1. [禁用与变量同名的标签 (no-label-var)](#no-label-var)
+  1. [禁用标签语句 (no-labels)](#no-labels)
   1. [no-lone-blocks](#no-lone-blocks)
   1. [no-loop-func](#no-loop-func)
   1. [no-mixed-operators](#no-mixed-operators)
@@ -1118,4 +1118,125 @@ setInterval(function() {
     alert("Hi!");
 }, 100);
 ```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-invalid-regexp">禁止在 RegExp 构造函数中出现无效的正则表达式 (no-invalid-regexp)</a>
+```python
+'no-invalid-regexp': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-invalid-regexp: "error"*/
+
+RegExp('[')
+
+RegExp('.', 'z')
+
+new RegExp('\\')
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-invalid-regexp: "error"*/
+
+RegExp('.')
+
+new RegExp
+
+this.RegExp('[')
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-iterator">禁用迭代器 (no-iterator)</a>
+```python
+'no-iterator': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-iterator: "error"*/
+
+Foo.prototype.__iterator__ = function() {
+    return new FooIterator(this);
+};
+
+foo.__iterator__ = function () {};
+
+foo["__iterator__"] = function () {};
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-iterator: "error"*/
+
+var __iterator__ = foo; // Not using the `__iterator__` property.
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-label-var">禁用与变量同名的标签 (no-label-var)</a>
+```python
+'no-label-var': 'warn'
+```
+
+- **等级 : "warn"**
+
+##### 错误 代码示例：
+
+```python
+/*eslint no-label-var: "error"*/
+
+var x = foo;
+function bar() {
+x:
+  for (;;) {
+    break x;
+  }
+}
+```
+##### 正确 代码示例：
+
+```python
+/*eslint no-label-var: "error"*/
+
+// The variable that has the same name as the label is not in scope.
+
+function foo() {
+  var q = t;
+}
+
+function bar() {
+q:
+  for(;;) {
+    break q;
+  }
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+## <a name="no-labels">禁用标签语句 (no-labels)</a>
+```python
+'no-labels': ['warn', { allowLoop: true, allowSwitch: false }]
+```
+
+- **等级 : "warn"**
+- **选项 "allowLoop"**: (boolean，默认是 false) - 如果这个选项被设置为 true，该规则忽略循环语句中的标签。
+
+##### 选项 { "allowLoop": true } 的 正确 代码示例：
+
+```python
+/*eslint no-labels: ["error", { "allowLoop": true }]*/
+
+label:
+    while (true) {
+        break label;
+    }
+```
+
 **[⬆ 回到顶部](#table-of-contents)**
