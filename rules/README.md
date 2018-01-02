@@ -88,6 +88,7 @@
 
 ## <a name="semi">要求或禁止使用分号代替 ASI (semi)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则强制使用一致的分号。
 ```javascript
 semi: ['error', 'always']
 ```
@@ -117,6 +118,15 @@ object.method = function() {
    
    
 ## <a name="no-unused-vars">禁止未使用过的变量 (no-unused-vars)</a>
+>此规则旨在消除未使用过的变量，方法和方法中的参数名，当发现这些存在，发出警告。
+ 符合下面条件的变量被认为是可以使用的:
+ 
+> * 作为回调函数
+> * 被读取 (var y = x)
+> * 传入函数中作为argument对象(doSomething(x))
+> * 在传入到另一个函数的函数中被读取
+
+>一个变量仅仅是被赋值为 (var x = 5) 或者是被声明过，则认为它是没被考虑使用。
 ```javascript
 'no-unused-vars': [
   'warn',
@@ -147,6 +157,7 @@ var { type, ...coords } = data;
 
 
 ## <a name="no-console">禁用 console (no-console)</a>
+>该规则禁止调用 console 对象的方法。
 ```javascript
 'no-console': 'off'
 ```
@@ -155,6 +166,18 @@ var { type, ...coords } = data;
 
 
 ## <a name="array-callback-return">强制数组方法的回调函数中有 return 语句 (array-callback-return)</a>
+>该规则发现以下方法的回调函数，然后检查return语句的使用。
+> * Array.from
+> * Array.prototype.every
+> * Array.prototype.filter
+> * Array.prototype.find
+> * Array.prototype.findIndex
+> * Array.prototype.map
+> * Array.prototype.reduce
+> * Array.prototype.reduceRight
+> * Array.prototype.some
+> * Array.prototype.sort
+> * 以上类型的数据。
 ```javascript
 'array-callback-return': 'off'
 ```
@@ -163,6 +186,7 @@ var { type, ...coords } = data;
 
 
  ## <a name="default-case">要求 Switch 语句中有 Default 分支 (default-case)</a>
+ >此规则的目的是在 switch 语句中强制声明 default 分支。或者也可以在最后一个 case 分支下，使用 // no default 来表明此处不需要 default 分支。注释可以任何形式出现，比如 // No Default。
  ```javascript
  'default-case': ['warn', { commentPattern: '^no default$' }]
  ```
@@ -215,6 +239,7 @@ switch (a) {
  
 ## <a name="dot-location">强制在点号之前或之后换行 (dot-location)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则旨在强制成员表达式中强制换行的一致性。防止既在点号操作之前也在之后使用换行符。
  ```javascript
 'dot-location': ['warn', 'property']
  ```
@@ -239,6 +264,7 @@ var bar = object.property;
 
 ## <a name="eqeqeq">要求使用 === 和 !== (eqeqeq)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则旨在消除非类型安全的相等操作符。
  ```javascript
 eqeqeq: ['warn', 'allow-null']
  ```
@@ -250,6 +276,7 @@ eqeqeq: ['warn', 'allow-null']
 
 ## <a name="new-parens">要求调用无参构造函数时带括号 (new-parens)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则目的在于，当通过 new 关键字调用构造函数时，要求使用圆括号，以此提高代码的清晰度。
 ```javascript
 'new-parens': 'warn'
 ```
@@ -272,6 +299,7 @@ var person = new (Person)();
 
 
 ## <a name="no-array-constructor">禁止使用 Array 构造函数 (no-array-constructor)</a>
+>该规则禁止使用 Array 构造函数。
 ```javascript
 'no-array-constructor': 'warn'
 ```
@@ -298,6 +326,7 @@ new Array(someOtherArray.length)
 
 
 ## <a name="no-caller">禁用 caller 或 callee (no-caller)</a>
+>此规则目的在于阻止使用已弃用的代码和次优的代码，而且禁止使用 arguments.caller 和 arguments.callee。因此，当 arguments.caller 和 arguments.callee 被使用时，该规则将会发出警告。
 ```javascript
 'no-caller': 'warn'
 ```
@@ -338,6 +367,7 @@ function foo(n) {
 
 
 ## <a name="no-cond-assign">禁止在条件语句中出现赋值操作符（no-cond-assign）</a>
+>该规则禁止在 if、for、while 和 do...while 语句中出现模棱两可的赋值操作符。
 ```javascript
 'no-cond-assign': ['warn', 'always']
 ```
@@ -392,6 +422,7 @@ if (x === 0) {
 
 
 ## <a name="no-const-assign">不允许改变用const声明的变量 (no-const-assign)</a>
+>该规则旨在标记修改用const关键字声明的变量。
 ```javascript
 'no-const-assign': 'warn'
 ```
@@ -439,6 +470,7 @@ for (const a of [1, 2, 3]) { // `a` is re-defined (not modified) on each loop st
 
 
 ## <a name="no-control-regex">禁止在正则表达式中使用控制字符（no-control-regex）</a>
+>该规则禁止在正则表达式中出现控制字符。
 ```javascript
 'no-control-regex': 'warn'
 ```
@@ -461,6 +493,9 @@ var pattern2 = new RegExp("\x20");
 
 
 ## <a name="no-delete-var">禁止删除变量 (no-delete-var)</a>
+>该规则禁止对变量使用 delete 操作符。
+ 
+>如果 ESLint 是在严格模式下解析代码，解析器（而不是该规则）会报告错误。
 ```javascript
 'no-delete-var': 'warn'
 ```
@@ -476,6 +511,9 @@ delete x;
 
 
 ## <a name="no-dupe-args">禁止在 function 定义中出现重复的参数 (no-dupe-args)</a>
+>该规则禁止在函数定义或表达中出现重名参数。该规则并不适用于箭头函数或类方法，因为解析器会报告这样的错误。
+
+>如果 ESLint 在严格模式下解析代码，解析器（不是该规则）将报告这样的错误。
 ```javascript
 'no-dupe-args': 'warn'
 ```
@@ -508,6 +546,7 @@ var bar = function (a, b, c) {
 
 
 ## <a name="no-dupe-class-members">不允许类成员中有重复的名称 (no-dupe-class-members)</a>
+>该规则旨在标记类成员中重复名称的使用。
 ```javascript
 'no-dupe-class-members': 'warn'
 ```
@@ -556,6 +595,7 @@ class Foo {
 
 
 ## <a name="no-dupe-keys">禁止在对象字面量中出现重复的键 (no-dupe-keys)</a>
+>该规则禁止在对象字面量中出现重复的键。
 ```javascript
 'no-dupe-keys': 'warn'
 ```
@@ -592,6 +632,7 @@ var foo = {
 
 
 ## <a name="no-duplicate-case">禁止重复 case 标签（no-duplicate-case）</a>
+>该规则禁止在 switch 语句中的 case 子句中出现重复的测试表达式。
 ```javascript
 'no-duplicate-case': 'warn'
 ```
@@ -680,6 +721,7 @@ switch (a) {
 
 
 ## <a name="no-empty-character-class">禁止在正则表达式中出现空字符集 (no-empty-character-class)</a>
+>该规则禁止在正则表达式中出现空字符集。
 ```javascript
 'no-empty-character-class': 'warn'
 ```
@@ -705,6 +747,7 @@ switch (a) {
 
 
 ## <a name="no-empty-pattern">禁止使用空解构模式 (no-empty-pattern)</a>
+>此规则目的在于标记出在解构对象和数组中的任何的空模式，每当遇到一个这样的空模式，该规则就会报告一个问题。
 ```javascript
 'no-empty-pattern': 'warn'
 ```
@@ -735,6 +778,7 @@ function foo({a = []}) {}
 
 
 ## <a name="no-eval">禁用 eval()（no-eval）</a>
+>此规则目的在于通过禁止使用 eval() 函数来避免潜在地危险、不必要的和运行效率低下的代码。因此，当时使用 eval() 函数时，该规则将发出警告。
 ```javascript
 'no-eval': 'warn'
 ```
@@ -778,6 +822,7 @@ class A {
 
 
 ## <a name="no-ex-assign">禁止对 catch 子句中的异常重新赋值 (no-ex-assign)</a>
+>该规则禁止对 catch 子句中的异常重新赋值。
 ```javascript
 'no-ex-assign': 'warn'
 ```
@@ -806,6 +851,7 @@ try {
 
 
 ## <a name="no-extend-native">禁止扩展原生对象 (no-extend-native)</a>
+>禁止直接修改内建对象的属性。
 ```javascript
 'no-extend-native': 'warn'
 ```
@@ -822,6 +868,9 @@ Object.defineProperty(Array.prototype, "times", { value: 999 });
 
 ## <a name="no-extra-bind">禁止不必要的函数绑定 (no-extra-bind)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>此规则目的在于避免不必要的 bind() 使用，并且当立即执行的函数表达式 (IIFE) 使用 bind()，但是没有一个合适的 this 值时，该规则会发出警告。此规则不会标记有函数参数绑定的bind() 的使用情况。
+
+>注意：箭头函数不能通过使用 bind() 设置它们的自己 this 值。此规则把所有使用bind() 的箭头函数标记为是有问题的。
 ```javascript
 'no-extra-bind': 'warn'
 ```
@@ -872,6 +921,7 @@ var x = function (a) {
 
 ## <a name="no-extra-label">禁用不必要的标签 (no-extra-label)</a>
 命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则旨在消除不必要的标签。
 ```javascript
 'no-extra-label': 'warn'
 ```
@@ -932,6 +982,7 @@ C: switch (a) {
 
 
 ## <a name="no-fallthrough">禁止 case 语句落空 (no-fallthrough)</a>
+>该规则旨在消除非故意 case 落空行为。因此，它会标记处没有使用注释标明的落空情况。
 ```javascript
 'no-fallthrough': 'warn'
 ```
@@ -1000,6 +1051,7 @@ switch(foo) {
 
 
 ## <a name="no-func-assign">禁止对 function 声明重新赋值 (no-func-assign)</a>
+>该规则禁止对 function 声明重新赋值。
 ```javascript
 'no-func-assign': 'warn'
 ```
@@ -1034,6 +1086,7 @@ function foo() {
 
 
 ## <a name="no-implied-eval">禁用隐式的eval() (no-implied-eval)</a>
+>此规则目的在于消除使用 setTimeout()、setInterval() 或 execScript() 时隐式的 eval()。因此，当它们中的任何一个使用字符串作为第一个参数时，该规则将发出警告。
 ```javascript
 'no-implied-eval': 'warn'
 ```
@@ -1068,6 +1121,7 @@ setInterval(function() {
 
 
 ## <a name="no-invalid-regexp">禁止在 RegExp 构造函数中出现无效的正则表达式 (no-invalid-regexp)</a>
+>该规则禁止在 RegExp 构造函数中出现无效的正则表达式。
 ```javascript
 'no-invalid-regexp': 'warn'
 ```
@@ -1096,6 +1150,7 @@ this.RegExp('[')
 
 
 ## <a name="no-iterator">禁用迭代器 (no-iterator)</a>
+>此规则目的在于防止因使用 __iterator__属性而出现的错误，并不是所有浏览器都实现了这个属性。因此，当遇到 __iterator__属性时，该规则将会发出警告。
 ```javascript
 'no-iterator': 'warn'
 ```
@@ -1122,6 +1177,7 @@ var __iterator__ = foo; // Not using the `__iterator__` property.
 
 
 ## <a name="no-label-var">禁用与变量同名的标签 (no-label-var)</a>
+>该规则旨在通过禁止使用同一作用域下的同名的变量做为标签，来创建更清晰的代码。
 ```javascript
 'no-label-var': 'warn'
 ```
@@ -1159,6 +1215,7 @@ q:
 
 
 ## <a name="no-labels">禁用标签语句 (no-labels)</a>
+>此规则旨在消除 JavaScript 中标签的使用。当遇到标签语句时，该规则将发出警告。
 ```javascript
 'no-labels': ['warn', { allowLoop: true, allowSwitch: false }]
 ```
@@ -1177,6 +1234,7 @@ label:
 
 
 ## <a name="no-lone-blocks">禁用不必要的嵌套块 (no-lone-blocks)</a>
+>该规则旨在消除脚本顶部或其它块中不必要的和潜在的令人困惑的代码块。
 ```javascript
 'no-lone-blocks': 'warn'
 ```
@@ -1247,6 +1305,7 @@ aLabel: {
 
 
 ## <a name="no-loop-func">禁止循环中存在函数 (no-loop-func)</a>
+>这个错误的出现会导致代码不能如你期望的那样运行，也表明你对 JavaScript 这门语言存在误解。 如果你不修复这个错误，你的代码可能会正常运行，带在某些情况下，可能会出现意想不到的行为。
 ```javascript
 'no-loop-func': 'warn'
 ```
@@ -1309,6 +1368,8 @@ for (let i=10; i; i--) {
 
 
 ## <a name="no-mixed-operators">禁止混合使用不同的操作符 (no-mixed-operators)</a>
+>该规则检查 BinaryExpression 和 LogicalExpression。
+ 该规则可能与 no-extra-parens 规则。如果你同时使用该规则和no-extra-parens 规则，你需要使用 no-extra-parens 规则的 nestedBinaryExpressions 的选项。
 ```javascript
 'no-mixed-operators': [
       'warn',
@@ -1358,6 +1419,7 @@ var foo = a + b - c;
 
 
 ## <a name="no-multi-str">禁止多行字符串 (no-multi-str)</a>
+>该规则是为了防止多行字符串的使用。
 ```javascript
 'no-multi-str': 'warn'
 ```
@@ -1380,6 +1442,10 @@ var x = "Line 1\n" +
 
 ## <a name="no-native-resssign">禁止重新分配本地对象（no-native-resssign）</a>
 此规则在ESLint v3.3.0 中已弃用，并由no-global-assign规则取代。
+>这个规则不允许修改只读的全局变量。
+ESLint能够将全局变量配置为只读。
+> * 指定环境
+> * 指定全局
 ```javascript
 'no-native-reassign': 'warn'
 ```
@@ -1422,6 +1488,7 @@ a = 1
 
 ## <a name="no-negated-in-lhs">不允许在in表达式中否定左操作数（no-negated-in-lhs）</a>
 这个规则在ESLint v3.3.0中被弃用，并被no-unsafe-negation取代。
+>该规则不允许否定in表达式中的左操作数。
 ```javascript
 'no-negated-in-lhs': 'warn'
 ```
@@ -1452,6 +1519,7 @@ if(('' + !key) in object) {
 
 
 ## <a name="no-new-func">禁用Function构造函数 (no-new-func)</a>
+>该规则会高亮标记出不好的实践的使用。把一个字符串传给 Function 构造函数，你需要引擎解析该字符串，这一点同调用 eval 函数一样。
 ```javascript
 'no-new-func': 'warn'
 ```
@@ -1475,6 +1543,7 @@ var x = function (a, b) {
 
 
 ## <a name="no-new-object">禁止使用 Object 构造函数 (no-new-object)</a>
+>该规则禁止使用 Object 构造函数。。
 ```javascript
 'no-new-object': 'warn'
 ```
@@ -1501,6 +1570,7 @@ var myObject = {};
 
 
 ## <a name="no-new-symbol">禁止使用 Symbol 构造函数 (no-new-symbol)</a>
+>这个规则是为了防止Symbol与new操作员的意外调用。
 ```javascript
 'no-new-symbol': 'warn'
 ```
@@ -1531,7 +1601,7 @@ function bar(Symbol) {
 
 
 ## <a name="no-new-wrappers">禁止原始包装实例 (no-new-wrappers)</a>
-禁止对 String，Number 和 Boolean 使用 new 操作符
+>此规则目的在于消除通过 new 操作符使用 String、Number 和 Boolean 。因此，每当遇到 new String、new Number 或者 new Boolean，该规则都会发出警告。
 ```javascript
 'no-new-wrappers': 'warn'
 ```
@@ -1561,6 +1631,7 @@ var object = new MyString();
 
 
 ## <a name="no-obj-calls">禁止将全局对象当作函数进行调用 (no-obj-calls)</a>
+>该规则禁止将 Math、JSON 和 Reflect 对象当作函数进行调用。
 ```javascript
 'no-obj-calls': 'warn'
 ```
@@ -1608,6 +1679,8 @@ var num  = "071";
 
 
 ## <a name="no-octal-escape">禁止在字符串字面量中使用八进制转义序列 (no-octal-escape)</a>
+>该规则禁止在字符串字面量中使用八进制转义序列。
+如果 ESLint 是在严格模式下解析代码，解析器（而不是该规则）会报告错误。
 ```javascript
 'no-octal-escape': 'warn'
 ```
@@ -1630,6 +1703,7 @@ var foo = "Copyright \xA9";     // hexadecimal
 
 
 ## <a name="no-redeclare">禁止重新声明变量 (no-redeclare)</a>
+>此规则目旨在消除同一作用域中多次声明同一变量。
 ```javascript
 'no-redeclare': 'warn'
 ```
@@ -1653,6 +1727,7 @@ a = 10;
 
 
 ## <a name="no-regex-spaces">禁止正则表达式字面量中出现多个空格 (no-regex-spaces)</a>
+>该规则禁止在正则表达式字面量中出现多个空格。
 ```javascript
 'no-regex-spaces': 'warn'
 ```
@@ -1675,6 +1750,7 @@ var re = new RegExp("foo {3}bar");
 
 
 ## <a name="no-restricted-syntax">禁止使用特定的语法 (no-restricted-syntax)</a>
+>该规则禁止使用特定的（由用户来指定）语法。
 ```javascript
 'no-restricted-syntax': ['warn', 'WithStatement']
 ```
@@ -1720,6 +1796,7 @@ location.href = "javascript:void(0)";
 
 
 ## <a name="no-self-assign">禁止自身赋值 (no-self-assign)</a>
+>该规则旨在消除自身赋值的情况。
 ```javascript
 'no-self-assign': 'warn'
 ```
@@ -1753,6 +1830,7 @@ let foo = foo;
 
 
 ## <a name="no-self-compare">禁止自身比较（no-self-compare）</a>
+>该规则为了突出一个潜在的令人困惑的、无意义的代码。几乎没有场景需要你比较变量本身。
 ```javascript
 'no-self-compare': 'warn'
 ```
