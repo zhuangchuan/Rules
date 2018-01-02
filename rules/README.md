@@ -50,6 +50,16 @@
   1. [禁用八进制字面量 (no-octal)](#no-octal)
   1. [禁止在字符串字面量中使用八进制转义序列 (no-octal-escape)](#no-octal-escape)
   1. [禁止重新声明变量 (no-redeclare)](#no-redeclare)
+  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)  
+  1. [禁止使用特定的语法 (no-restricted-syntax)](#no-restricted-syntax)
+  1. [禁用 Script URL (no-script-url)](#no-script-url)
+  1. [禁止自身赋值 (no-self-assign)](#no-self-assign)
+  1. [禁止自身比较（no-self-compare）](#no-self-compare)
+  1. [不允许使用逗号操作符 (no-sequences)](#no-sequences)
+  
+  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
+  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
+  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
   1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
   
   
@@ -1640,5 +1650,148 @@ var re = new RegExp("foo   bar");
 
 var re = /foo {3}bar/;
 var re = new RegExp("foo {3}bar");
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-restricted-syntax">禁止使用特定的语法 (no-restricted-syntax)</a>
+```javascript
+'no-restricted-syntax': ['warn', 'WithStatement']
+```
+- **等级 : "warn"**
+- **选项 "WithStatement"**: 禁用with 
+##### 选项对话"FunctionExpression", "WithStatement", BinaryExpression[operator='in']的错误代码示例：
+```javascript
+/* eslint no-restricted-syntax: ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"] */
+
+with (me) {
+    dontMess();
+}
+
+var doSomething = function () {};
+
+foo in bar;
+```
+##### 选项对话"FunctionExpression", "WithStatement"的正确代码示例：
+```javascript
+/* eslint no-restricted-syntax: ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"] */
+
+me.dontMess();
+
+function doSomething() {};
+
+foo instanceof bar;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-script-url">禁用 Script URL (no-script-url)</a>
+```javascript
+'no-script-url': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-script-url: "error"*/
+
+location.href = "javascript:void(0)";
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-self-assign">禁止自身赋值 (no-self-assign)</a>
+```javascript
+'no-self-assign': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-self-assign: "error"*/
+
+foo = foo;
+
+[a, b] = [a, b];
+
+[a, ...b] = [x, ...b];
+
+({a, b} = {a, x});
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-self-assign: "error"*/
+
+foo = bar;
+[a, b] = [b, a];
+
+// This pattern is warned by the `no-use-before-define` rule.
+let foo = foo;
+
+// The default values have an effect.
+[foo = 1] = [foo];
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-self-compare">禁止自身比较（no-self-compare）</a>
+```javascript
+'no-self-compare': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-self-compare: "error"*/
+
+var x = 10;
+if (x === x) {
+    x = 20;
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-sequences">不允许使用逗号操作符 (no-sequences)</a>
+```javascript
+'no-sequences': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-sequences: "error"*/
+
+foo = doSomething(), val;
+
+0, eval("doSomething();");
+
+do {} while (doSomething(), !!test);
+
+for (; doSomething(), !!test; );
+
+if (doSomething(), !!test);
+
+switch (val = foo(), val) {}
+
+while (val = foo(), val < 42);
+
+with (doSomething(), val) {}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-sequences: "error"*/
+
+foo = (doSomething(), val);
+
+(0, eval)("doSomething();");
+
+do {} while ((doSomething(), !!test));
+
+for (i = 0, j = 10; i < j; i++, j--);
+
+if ((doSomething(), !!test));
+
+switch ((val = foo(), val)) {}
+
+while ((val = foo(), val < 42));
+
+// with ((doSomething(), val)) {}
 ```
 **[⬆ 回到顶部](#table-of-contents)**
