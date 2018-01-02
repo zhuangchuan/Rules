@@ -2296,7 +2296,7 @@ a || b
 a && b()
 a() || (b = c)
 ```
-#####选项 { "allowTernary": true } 的 错误 代码示例：
+##### 选项 { "allowTernary": true } 的 错误 代码示例：
 ```javascript
 /*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
 
@@ -2310,7 +2310,7 @@ a ? b : c()
 a ? b() : c()
 a ? (b = c) : d()
 ```
-#####选项 { "allowTaggedTemplates": true } 的 错误 代码示例：
+##### 选项 { "allowTaggedTemplates": true } 的 错误 代码示例：
 ```javascript
 /*eslint no-unused-expressions: ["error", { "allowTaggedTemplates": true }]*/
 
