@@ -62,11 +62,11 @@
 1. [在构造函数中禁止在调用super()之前使用this或super。 (no-this-before-super)](#no-this-before-super)
 1. [限制可以被抛出的异常 (no-throw-literal) ](#no-throw-literal)
 1. [禁用未声明的变量 (no-undef)](#no-undef)
+1. [禁用特定的全局变量 (no-restricted-globals)](#no-restricted-globals)
+1. [禁止使用令人困惑的多行表达式 (no-unexpected-multiline)](#no-unexpected-multiline)
+1. [禁止在 return、throw、continue 和 break 语句后出现不可达代码 (no-unreachable)](#no-unreachable)
+1. [禁止未使用过的表达式 (no-unused-expressions)](#no-unused-expressions)
 
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
 1. [禁用 eval()（no-eval）](#no-eval)
 1. [禁用 eval()（no-eval）](#no-eval)
 1. [禁用 eval()（no-eval）](#no-eval)
@@ -162,6 +162,7 @@ var { type, ...coords } = data;
 'no-console': 'off'
 ```
 - **选项 "off"**: 关闭禁用
+
 **[⬆ 回到顶部](#table-of-contents)**
 
 
@@ -2114,5 +2115,211 @@ b = 10;
 /*eslint no-undef: "error"*/
 
 b = 10;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-restricted-globals">禁用特定的全局变量 (no-restricted-globals)</a>
+>该规则允许你指定你不想在你的应用中使用的全局变量的名称。
+```javascript
+'no-restricted-globals': ['error'].concat(restrictedGlobals)
+```
+- **等级 : "error"**
+- **选项 "restrictedGlobals"**: 全局变量
+##### 全局变量 "event", "fdescribe" 的 错误 代码示例：
+```javascript
+/*global event, fdescribe*/
+/*eslint no-restricted-globals: ["error", "event", "fdescribe"]*/
+
+function onClick() {
+    console.log(event);
+}
+
+fdescribe("foo", function() {
+});
+```
+##### 全局变量 "event" 的 正确 代码示例：
+```javascript
+/*global event*/
+/*eslint no-restricted-globals: ["error", "event"]*/
+
+import event from "event-module";
+/*global event*/
+/*eslint no-restricted-globals: ["error", "event"]*/
+
+var event = 1;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-unexpected-multiline">禁止使用令人困惑的多行表达式 (no-unexpected-multiline)</a>
+>该规则禁止使用令人困惑的多行表达式。
+```javascript
+'no-unexpected-multiline': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-unexpected-multiline: "error"*/
+
+var foo = bar
+(1 || 2).baz();
+
+var hello = 'world'
+[1, 2, 3].forEach(addNumber);
+
+let x = function() {}
+`hello`
+
+let x = function() {}
+x
+`hello`
+
+let x = foo
+/regex/g.test(bar)
+```
+##### 正确 代码示例：
+```javascript
+var foo = bar;
+(1 || 2).baz();
+
+var foo = bar
+;(1 || 2).baz()
+
+var hello = 'world';
+[1, 2, 3].forEach(addNumber);
+
+var hello = 'world'
+void [1, 2, 3].forEach(addNumber);
+
+let x = function() {};
+`hello`
+
+let tag = function() {}
+tag `hello`
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-unexpected-multiline">禁止使用令人困惑的多行表达式 (no-unexpected-multiline)</a>
+>该规则禁止在 return、throw、continue 和 break 语句后出现不可达代码。
+```javascript
+'no-unexpected-multiline': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-unreachable: "error"*/
+
+function foo() {
+    return true;
+    console.log("done");
+}
+
+function bar() {
+    throw new Error("Oops!");
+    console.log("done");
+}
+
+while(value) {
+    break;
+    console.log("done");
+}
+
+throw new Error("Oops!");
+console.log("done");
+
+function baz() {
+    if (Math.random() < 0.5) {
+        return;
+    } else {
+        throw new Error();
+    }
+    console.log("done");
+}
+
+for (;;) {}
+console.log("done");
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-unreachable: "error"*/
+
+function foo() {
+    return bar();
+    function bar() {
+        return 1;
+    }
+}
+
+function bar() {
+    return x;
+    var x;
+}
+
+switch (foo) {
+    case 1:
+        break;
+        var x;
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-unused-expressions">禁止未使用过的表达式 (no-unused-expressions)</a>
+>此规则的目的在于消除未使用过的表达式，它们在程序中不起任何作用。
+ 该规则不适用于使用 new 操作符的函数或构造函数调用，因为它们可能会有副作用
+```javascript
+'no-unused-expressions': [
+  'warn',
+  {
+    allowShortCircuit: true,
+    allowTernary: true,
+    allowTaggedTemplates: true,
+  },
+]
+```
+- **等级 : "warn"**
+- **选项 "allowShortCircuit"**: 设置为 true 将允许你在表达式中使用逻辑短路求值。（默认为 false）
+- **选项 "allowTernary"**: 设置为 true 将允许你在表达式中使用类似逻辑短路求值的三元运算符。（默认为 false）。
+- **选项 "allowTaggedTemplates"**: 设置为 true 将允许你在表达式中使用带标签的模板字面量 (默认: false)。
+#####选项 { "allowShortCircuit": true } 的 错误 代码示例：
+```javascript
+/*eslint no-unused-expressions: ["error", { "allowShortCircuit": true }]*/
+
+a || b
+```
+##### 选项 { "allowShortCircuit": true } 的 正确 代码示例：
+```javascript
+/*eslint no-unused-expressions: ["error", { "allowShortCircuit": true }]*/
+
+a && b()
+a() || (b = c)
+```
+#####选项 { "allowTernary": true } 的 错误 代码示例：
+```javascript
+/*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
+
+a ? b : 0
+a ? b : c()
+```
+##### 选项 { "allowTernary": true } 的 正确 代码示例：
+```javascript
+/*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
+
+a ? b() : c()
+a ? (b = c) : d()
+```
+#####选项 { "allowTaggedTemplates": true } 的 错误 代码示例：
+```javascript
+/*eslint no-unused-expressions: ["error", { "allowTaggedTemplates": true }]*/
+
+`some untagged template string`;
+```
+##### 选项 { "allowTaggedTemplates": true } 的 正确 代码示例：
+```javascript
+/*eslint no-unused-expressions: ["error", { "allowTaggedTemplates": true }]*/
+
+tag`some tagged template string`;
 ```
 **[⬆ 回到顶部](#table-of-contents)**
