@@ -4,63 +4,83 @@
 
 ## <a name="table-of-contents">目录</a>
 
-  1. [要求或禁止使用分号代替 ASI (semi)](#semi)
-  1. [未使用过的变量 (no-unused-vars)](#no-unused-vars)
-  1. [禁用 console (no-console)](#no-console)
-  1. [强制数组方法的回调函数中有 return 语句 (array-callback-return)](#array-callback-return)
-  1. [要求 Switch 语句中有 Default 分支 (default-case)](#default-case)
-  1. [强制在点号之前或之后换行 (dot-location)](#dot-location)
-  1. [要求使用 === 和 !== (eqeqeq)](#eqeqeq)
-  1. [要求调用无参构造函数时带括号 (new-parens)](#new-parens)
-  1. [禁止使用 Array 构造函数 (no-array-constructor)](#no-array-constructor)
-  1. [禁用 caller 或 callee (no-caller)](#no-caller)
-  1. [禁止在条件语句中出现赋值操作符（no-cond-assign）](#no-cond-assign)
-  1. [不允许改变用const声明的变量 (no-const-assign)](#no-const-assign)
-  1. [禁止在正则表达式中使用控制字符（no-control-regex）](#no-control-regex)
-  1. [禁止删除变量 (no-delete-var)](#no-delete-var)
-  1. [禁止在 function 定义中出现重复的参数 (no-dupe-args)](#no-dupe-args)
-  1. [不允许类成员中有重复的名称 (no-dupe-class-members)](#no-dupe-class-members)
-  1. [禁止在对象字面量中出现重复的键 (no-dupe-keys)](#no-dupe-keys)
-  1. [禁止重复 case 标签（no-duplicate-case）](#no-duplicate-case)
-  1. [禁止在正则表达式中出现空字符集 (no-empty-character-class)](#no-empty-character-class)
-  1. [禁止使用空解构模式 (no-empty-pattern)](#no-empty-pattern)
-  1. [禁用 eval()（no-eval）](#no-eval)
-  1. [禁止对 catch 子句中的异常重新赋值 (no-ex-assign)](#no-ex-assign)
-  1. [禁止扩展原生对象 (no-extend-native)](#no-extend-native)
-  1. [禁止不必要的函数绑定 (no-extra-bind)](#no-extra-bind)
-  1. [禁用不必要的标签 (no-extra-label)](#no-extra-label)
-  1. [禁止 case 语句落空 (no-fallthrough)](#no-fallthrough)
-  1. [禁止对 function 声明重新赋值 (no-func-assign)](#no-func-assign)
-  1. [禁用隐式的eval() (no-implied-eval)](#no-implied-eval)
-  1. [禁止在 RegExp 构造函数中出现无效的正则表达式 (no-invalid-regexp)](#no-invalid-regexp)
-  1. [禁用迭代器 (no-iterator)](#no-iterator)
-  1. [禁用与变量同名的标签 (no-label-var)](#no-label-var)
-  1. [禁用标签语句 (no-labels)](#no-labels)
-  1. [禁用不必要的嵌套块 (no-lone-blocks)](#no-lone-blocks)
-  1. [禁止循环中存在函数 (no-loop-func)](#no-loop-func)
-  1. [禁止混合使用不同的操作符 (no-mixed-operators)](#no-mixed-operators)
-  1. [禁止多行字符串 (no-multi-str)](#no-multi-str)
-  1. [禁止重新分配本地对象（no-native-resssign）](#no-native-reassign)
-  1. [不允许在in表达式中否定左操作数（no-negated-in-lhs）](#no-negated-in-lhs)
-  1. [禁用Function构造函数 (no-new-func)](#no-new-func)
-  1. [禁止使用 Object 构造函数 (no-new-object)](#no-new-object)
-  1. [禁止Symbol构造函数 (no-new-symbol)](#no-new-symbol)
-  1. [禁止原始包装实例 (no-new-wrappers)](#no-new-wrappers)
-  1. [禁止将全局对象当作函数进行调用 (no-obj-calls)](#no-obj-calls)
-  1. [禁用八进制字面量 (no-octal)](#no-octal)
-  1. [禁止在字符串字面量中使用八进制转义序列 (no-octal-escape)](#no-octal-escape)
-  1. [禁止重新声明变量 (no-redeclare)](#no-redeclare)
-  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)  
-  1. [禁止使用特定的语法 (no-restricted-syntax)](#no-restricted-syntax)
-  1. [禁用 Script URL (no-script-url)](#no-script-url)
-  1. [禁止自身赋值 (no-self-assign)](#no-self-assign)
-  1. [禁止自身比较（no-self-compare）](#no-self-compare)
-  1. [不允许使用逗号操作符 (no-sequences)](#no-sequences)
-  
-  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
-  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
-  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
-  1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)
+1. [要求或禁止使用分号代替 ASI (semi)](#semi)
+1. [未使用过的变量 (no-unused-vars)](#no-unused-vars)
+1. [禁用 console (no-console)](#no-console)
+1. [强制数组方法的回调函数中有 return 语句 (array-callback-return)](#array-callback-return)
+1. [要求 Switch 语句中有 Default 分支 (default-case)](#default-case)
+1. [强制在点号之前或之后换行 (dot-location)](#dot-location)
+1. [要求使用 === 和 !== (eqeqeq)](#eqeqeq)
+1. [要求调用无参构造函数时带括号 (new-parens)](#new-parens)
+1. [禁止使用 Array 构造函数 (no-array-constructor)](#no-array-constructor)
+1. [禁用 caller 或 callee (no-caller)](#no-caller)
+1. [禁止在条件语句中出现赋值操作符（no-cond-assign）](#no-cond-assign)
+1. [不允许改变用const声明的变量 (no-const-assign)](#no-const-assign)
+1. [禁止在正则表达式中使用控制字符（no-control-regex）](#no-control-regex)
+1. [禁止删除变量 (no-delete-var)](#no-delete-var)
+1. [禁止在 function 定义中出现重复的参数 (no-dupe-args)](#no-dupe-args)
+1. [不允许类成员中有重复的名称 (no-dupe-class-members)](#no-dupe-class-members)
+1. [禁止在对象字面量中出现重复的键 (no-dupe-keys)](#no-dupe-keys)
+1. [禁止重复 case 标签（no-duplicate-case）](#no-duplicate-case)
+1. [禁止在正则表达式中出现空字符集 (no-empty-character-class)](#no-empty-character-class)
+1. [禁止使用空解构模式 (no-empty-pattern)](#no-empty-pattern)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁止对 catch 子句中的异常重新赋值 (no-ex-assign)](#no-ex-assign)
+1. [禁止扩展原生对象 (no-extend-native)](#no-extend-native)
+1. [禁止不必要的函数绑定 (no-extra-bind)](#no-extra-bind)
+1. [禁用不必要的标签 (no-extra-label)](#no-extra-label)
+1. [禁止 case 语句落空 (no-fallthrough)](#no-fallthrough)
+1. [禁止对 function 声明重新赋值 (no-func-assign)](#no-func-assign)
+1. [禁用隐式的eval() (no-implied-eval)](#no-implied-eval)
+1. [禁止在 RegExp 构造函数中出现无效的正则表达式 (no-invalid-regexp)](#no-invalid-regexp)
+1. [禁用迭代器 (no-iterator)](#no-iterator)
+1. [禁用与变量同名的标签 (no-label-var)](#no-label-var)
+1. [禁用标签语句 (no-labels)](#no-labels)
+1. [禁用不必要的嵌套块 (no-lone-blocks)](#no-lone-blocks)
+1. [禁止循环中存在函数 (no-loop-func)](#no-loop-func)
+1. [禁止混合使用不同的操作符 (no-mixed-operators)](#no-mixed-operators)
+1. [禁止多行字符串 (no-multi-str)](#no-multi-str)
+1. [禁止重新分配本地对象（no-native-resssign）](#no-native-reassign)
+1. [不允许在in表达式中否定左操作数（no-negated-in-lhs）](#no-negated-in-lhs)
+1. [禁用Function构造函数 (no-new-func)](#no-new-func)
+1. [禁止使用 Object 构造函数 (no-new-object)](#no-new-object)
+1. [禁止Symbol构造函数 (no-new-symbol)](#no-new-symbol)
+1. [禁止原始包装实例 (no-new-wrappers)](#no-new-wrappers)
+1. [禁止将全局对象当作函数进行调用 (no-obj-calls)](#no-obj-calls)
+1. [禁用八进制字面量 (no-octal)](#no-octal)
+1. [禁止在字符串字面量中使用八进制转义序列 (no-octal-escape)](#no-octal-escape)
+1. [禁止重新声明变量 (no-redeclare)](#no-redeclare)
+1. [禁止正则表达式字面量中出现多个空格 (no-regex-spaces)](#no-regex-spaces)  
+1. [禁止使用特定的语法 (no-restricted-syntax)](#no-restricted-syntax)
+1. [禁用 Script URL (no-script-url)](#no-script-url)
+1. [禁止自身赋值 (no-self-assign)](#no-self-assign)
+1. [禁止自身比较（no-self-compare）](#no-self-compare)
+1. [不允许使用逗号操作符 (no-sequences)](#no-sequences)
+1. [关键字不能被遮蔽 (no-shadow-restricted-names)](#no-shadow-restricted-names)  
+1. [禁用稀疏数组 (no-sparse-arrays)](#no-sparse-arrays)
+1. [不允许在常规字符串中使用模板字面量占位符语法 (no-template-curly-in-string)](#no-template-curly-in-string)
+1. [在构造函数中禁止在调用super()之前使用this或super。 (no-this-before-super)](#no-this-before-super)
+1. [限制可以被抛出的异常 (no-throw-literal) ](#no-throw-literal)
+1. [禁用未声明的变量 (no-undef)](#no-undef)
+
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
+1. [禁用 eval()（no-eval）](#no-eval)
   
   
 # 代码规范常见问题
@@ -1750,6 +1770,9 @@ if (x === x) {
 
 
 ## <a name="no-sequences">不允许使用逗号操作符 (no-sequences)</a>
+> 此规则禁止逗号操作符的使用，以下情况除外：
+> * 在初始化或者更新部分 for 语句时。
+> * 如果表达式序列被明确包裹在括号中。
 ```javascript
 'no-sequences': 'warn'
 ```
@@ -1793,5 +1816,225 @@ switch ((val = foo(), val)) {}
 while ((val = foo(), val < 42));
 
 // with ((doSomething(), val)) {}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-shadow-restricted-names">关键字不能被遮蔽 (no-shadow-restricted-names)</a>
+```javascript
+'no-shadow-restricted-names': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-shadow-restricted-names: "error"*/
+
+function NaN(){}
+
+!function(Infinity){};
+
+var undefined;
+
+try {} catch(eval){}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-shadow-restricted-names: "error"*/
+
+var Object;
+
+function f(a, b){}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-sparse-arrays">禁用稀疏数组 (no-sparse-arrays)</a>
+>该规则禁止使用稀疏数组，也就是逗号之前没有任何元素的数组。该规则不适用于紧随最后一个元素的拖尾逗号的情况。
+```javascript
+'no-sparse-arrays': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-sparse-arrays: "error"*/
+
+var items = [,];
+var colors = [ "red",, "blue" ];
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-sparse-arrays: "error"*/
+
+var items = [];
+var items = new Array(23);
+
+// trailing comma (after the last element) is not a problem
+var colors = [ "red", "blue", ];
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-template-curly-in-string">不允许在常规字符串中使用模板字面量占位符语法 (no-template-curly-in-string)</a>
+>这个规则的目的是警告当一个常规字符串包含了一个模板字面上的占位符。它将在发现包含模板文字的位置符($ {something})的字符串时发出警告($ {something})，它使用“或”引用引号。
+```javascript
+'no-template-curly-in-string': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-template-curly-in-string: "error"*/
+"Hello ${name}!";
+'Hello ${name}!';
+"Time: ${12 * 60 * 60 * 1000}";
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-template-curly-in-string: "error"*/
+`Hello ${name}!`;
+`Time: ${12 * 60 * 60 * 1000}`;
+
+templateFunction`Hello ${name}`;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-this-before-super">在构造函数中禁止在调用super()之前使用this或super。 (no-this-before-super)</a>
+>该规则旨在标记出在调用 super() 之前使用 this 或 super 的情况。
+```javascript
+'no-this-before-super': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-this-before-super: "error"*/
+/*eslint-env es6*/
+
+class A extends B {
+    constructor() {
+        this.a = 0;
+        super();
+    }
+}
+
+class A extends B {
+    constructor() {
+        this.foo();
+        super();
+    }
+}
+
+class A extends B {
+    constructor() {
+        super.foo();
+        super();
+    }
+}
+
+class A extends B {
+    constructor() {
+        super(this.foo());
+    }
+}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-this-before-super: "error"*/
+/*eslint-env es6*/
+
+class A {
+    constructor() {
+        this.a = 0; // OK, this class doesn't have an `extends` clause.
+    }
+}
+
+class A extends B {
+    constructor() {
+        super();
+        this.a = 0; // OK, this is after `super()`.
+    }
+}
+
+class A extends B {
+    foo() {
+        this.a = 0; // OK. this is not in a constructor.
+    }
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-throw-literal">限制可以被抛出的异常 (no-throw-literal)</a>
+>此规则目的在于保持异常抛出的一致性，通过禁止抛出字面量和那些不可能是 Error 对象的表达式。
+```javascript
+'no-throw-literal': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-throw-literal: "error"*/
+/*eslint-env es6*/
+
+throw "error";
+
+throw 0;
+
+throw undefined;
+
+throw null;
+
+var err = new Error();
+throw "an " + err;
+// err is recast to a string literal
+
+var err = new Error();
+throw `${err}`
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-throw-literal: "error"*/
+
+throw new Error();
+
+throw new Error("error");
+
+var e = new Error("error");
+throw e;
+
+try {
+    throw new Error("error");
+} catch (e) {
+    throw e;
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-undef">禁用未声明的变量 (no-undef)</a>
+>对任何未声明的变量的引用都会引起一个警告，除非显式地在 /*global ...*/ 注释中指定。
+```javascript
+'no-undef': 'error'
+```
+- **等级 : "error"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-undef: "error"*/
+
+var a = someFunction();
+b = 10;
+```
+##### 有 global 声明时，该规则的 正确 代码示例：
+```javascript
+//*global someFunction b:true*/
+ /*eslint no-undef: "error"*/
+ 
+ var a = someFunction();
+ b = 10;
+```
+##### 有 global 声明时，该规则的 错误 代码示例：
+```javascript
+/*global b*/
+/*eslint no-undef: "error"*/
+
+b = 10;
 ```
 **[⬆ 回到顶部](#table-of-contents)**
