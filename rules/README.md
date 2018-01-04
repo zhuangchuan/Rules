@@ -66,21 +66,35 @@
 1. [禁止使用令人困惑的多行表达式 (no-unexpected-multiline)](#no-unexpected-multiline)
 1. [禁止在 return、throw、continue 和 break 语句后出现不可达代码 (no-unreachable)](#no-unreachable)
 1. [禁止未使用过的表达式 (no-unused-expressions)](#no-unused-expressions)
+1. [禁用未使用过的标签 (no-unused-labels)](#no-unused-labels)
+1. [禁止定义前使用 (no-use-before-define)](#no-use-before-define)
+1. [不允许在对象上使用不必要的计算属性键(no-useless-computed-key)](#no-useless-computed-key)
+1. [禁止没有必要的字符拼接 (no-useless-concat)](#no-useless-concat)
+1. [禁用不必要的构造函数 (no-useless-constructor)](#no-useless-constructor)
+1. [禁用不必要的转义 (no-useless-escape)](#no-useless-escape)
+1. [禁止将import， export和destructured assignments重命名为相同的名称（no-useless-rename）](#no-useless-rename)
+1. [禁用 with 语句 (no-with)](#no-with)
+1. [禁止属性前有空白 (no-whitespace-before-property)](#no-whitespace-before-property)
+1. [要求必须有基数 (radix)](#radix)
+1. [禁用函数内没有yield的 generator 函数（require-yield）](#require-yield)
+1. [强制限制扩展运算符及其表达式之间的空格（rest-spread-spacing）](#rest-spread-spacing)
+1. [要求或禁止使用严格模式指令 (strict)](#strict)
+1. [要求或禁止使用 Unicode 字节顺序标记 (BOM) (unicode-bom)](#unicode-bom)
+1. [要求调用 isNaN()检查 NaN (use-isnan)](#use-isnan)
+1. [强制 typeof 表达式与有效的字符串进行比较 (valid-typeof)](#valid-typeof)
+1. [禁止某些对象属性 (no-restricted-properties)](#no-restricted-properties)
 
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
-1. [禁用 eval()（no-eval）](#no-eval)
+1. [import/first](#import/first)
+1. [import/no-amd](#import/no-amd)
+1. [import/no-webpack-loader-syntax](#import/no-webpack-loader-syntax)
+
+1. [react/jsx-no-comment-textnodes](#react/jsx-no-comment-textnodes)
+1. [react/jsx-no-duplicate-props](#react/jsx-no-duplicate-props)
+1. [jsx-no-target-blank](#jsx-no-target-blank)
+1. [jsx-no-undef](#jsx-no-undef)
+1. [react/jsx-pascal-case](#react/jsx-pascal-case)
+1. [react/jsx-uses-react](#react/jsx-uses-react)
+1. [react/jsx-uses-vars](#strict)
   
   
 # 代码规范常见问题
@@ -2283,7 +2297,7 @@ switch (foo) {
 - **选项 "allowShortCircuit"**: 设置为 true 将允许你在表达式中使用逻辑短路求值。（默认为 false）
 - **选项 "allowTernary"**: 设置为 true 将允许你在表达式中使用类似逻辑短路求值的三元运算符。（默认为 false）。
 - **选项 "allowTaggedTemplates"**: 设置为 true 将允许你在表达式中使用带标签的模板字面量 (默认: false)。
-#####选项 { "allowShortCircuit": true } 的 错误 代码示例：
+##### 选项 { "allowShortCircuit": true } 的 错误 代码示例：
 ```javascript
 /*eslint no-unused-expressions: ["error", { "allowShortCircuit": true }]*/
 
@@ -2321,5 +2335,885 @@ a ? (b = c) : d()
 /*eslint no-unused-expressions: ["error", { "allowTaggedTemplates": true }]*/
 
 tag`some tagged template string`;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-unused-labels">禁用未使用过的标签 (no-unused-labels)</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则旨在消除未使用过的标签。
+```javascript
+'no-unused-labels': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-unused-labels: "error"*/
+
+A: var foo = 0;
+
+B: {
+    foo();
+}
+
+C:
+for (let i = 0; i < 10; ++i) {
+    foo();
+}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-unused-labels: "error"*/
+
+A: {
+    if (foo()) {
+        break A;
+    }
+    bar();
+}
+
+B:
+for (let i = 0; i < 10; ++i) {
+    if (foo()) {
+        break B;
+    }
+    bar();
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-use-before-define">禁止定义前使用 (no-use-before-define)</a>
+>当使用一个还未声明的标示符是会报警告。
+```javascript
+'no-use-before-define': [
+  'warn',
+  {
+    functions: false,
+    classes: false,
+    variables: false,
+  },
+]
+```
+- **等级 : "warn"**
+- **选项 "functions"**: 这个参数表示该规则是否要检测函数的声明。 如果参数是 true，该规则会在引用一个未提前声明的函数时发出警报。 否则，忽略这些引用。因为函数声明作用域会被提升，所以这样做是安全的。 参数默认值是 true。
+- **选项 "classes"**: 这个参数表示是否要检测上层作用域中的类声明。 如果参数是 true，该规则会在引用一个未提前声明的类时发出警报。 否则，该规则会忽略对上层作用域中的类声明的引用。 因为类声明作用域不会被提升，所以这样做可能是危险的。 参数默认是 true。
+- **选项 "variables"**: 这个参数表示是否要在上层作用域内检测变量声明。 如果参数是 true，该规则会在引用一个未提前声明的变量时发出警报。 否则，该规则会忽略在上层作用域中变量声明的引用，然而仍然会报告对同一作用域中的变量声明的引用。 参数默认是 true。
+##### 选项{ "functions": false }的 正确 代码示例：
+```javascript
+/*eslint no-use-before-define: ["error", { "functions": false }]*/
+
+f();
+function f() {}
+```
+##### 选项{ "classes": false }的 错误 代码示例：
+```javascript
+/*eslint no-use-before-define: ["error", { "classes": false }]*/
+/*eslint-env es6*/
+
+new A();
+class A {
+}
+```
+##### 选项{ "classes": false }的 正确 代码示例：
+```javascript
+/*eslint no-use-before-define: ["error", { "classes": false }]*/
+/*eslint-env es6*/
+
+function foo() {
+    return new A();
+}
+
+class A {
+}
+```
+##### 选项 { "variables": false } 的 错误 代码示例：
+```javascript
+/*eslint no-use-before-define: ["error", { "variables": false }]*/
+
+console.log(foo);
+var foo = 1;
+```
+##### 选项 { "variables": false } 的 正确 代码示例：
+```javascript
+/*eslint no-use-before-define: ["error", { "variables": false }]*/
+
+function baz() {
+    console.log(foo);
+}
+
+var foo = 1;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-useless-computed-key">不允许在对象上使用不必要的计算属性键(no-useless-computed-key)</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>此规则不允许对计算属性键进行不必要的使用。
+```javascript
+'no-useless-computed-key': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint-env es6*/
+
+var a = { ['0']: 0 };
+var a = { ['0+1,234']: 0 };
+var a = { [0]: 0 };
+var a = { ['x']: 0 };
+var a = { ['x']() {} };
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-useless-computed-key: "error"*/
+
+var c = { 'a': 0 };
+var c = { 0: 0 };
+var a = { x() {} };
+var c = { a: 0 };
+var c = { '0+1,234': 0 };
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-useless-concat">禁止没有必要的字符拼接 (no-useless-concat)</a>
+>此规则目的在于标记可以组合成单个字面量的两个字面量的拼接。字面量可以是字符串或者模板字面量。
+```javascript
+'no-useless-concat': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-useless-concat: "error"*/
+/*eslint-env es6*/
+
+// these are the same as "10"
+var a = `some` + `string`;
+var a = '1' + '0';
+var a = '1' + `0`;
+var a = `1` + '0';
+var a = `1` + `0`;
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-useless-concat: "error"*/
+
+// when a non string is included
+var c = a + b;
+var c = '1' + a;
+var a = 1 + '1';
+var c = 1 - 2;
+// when the string concatenation is multiline
+var c = "foo" +
+    "bar";
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-useless-constructor">禁用不必要的构造函数 (no-useless-constructor)</a>
+>该规则标记可以被安全移除但又不改变类的行为的构造函数。
+```javascript
+'no-useless-constructor': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-useless-constructor: "error"*/
+/*eslint-env es6*/
+
+class A {
+    constructor () {
+    }
+}
+
+class A extends B {
+    constructor (...args) {
+      super(...args);
+    }
+}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-useless-constructor: "error"*/
+
+class A { }
+
+class A {
+    constructor () {
+        doSomething();
+    }
+}
+
+class A extends B {
+    constructor() {
+        super('foo');
+    }
+}
+
+class A extends B {
+    constructor() {
+        super();
+        doSomething();
+    }
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-useless-escape">禁用不必要的转义 (no-useless-escape)</a>
+>该规则标记在不改变代码行为的情况下可以安全移除的转义。
+```javascript
+'no-useless-escape': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-useless-escape: "error"*/
+
+"\'";
+'\"';
+"\#";
+"\e";
+`\"`;
+`\"${foo}\"`;
+`\#{foo}`;
+/\!/;
+/\@/;
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-useless-escape: "error"*/
+
+"\"";
+'\'';
+"\x12";
+"\u00a9";
+"\371";
+"xs\u2111";
+`\``;
+`\${${foo}\}`;
+`$\{${foo}\}`;
+/\\/g;
+/\t/g;
+/\w\$\*\^\./;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-useless-rename">禁止将import， export和destructured assignments重命名为相同的名称（no-useless-rename）</a>
+>此规则不允许将import， export和destructured assignments重命名为相同的名称。
+```javascript
+'no-useless-rename': [
+  'warn',
+  {
+    ignoreDestructuring: false,
+    ignoreImport: false,
+    ignoreExport: false,
+  },
+]
+```
+- **等级 : "warn"**
+- **选项 "ignoreDestructuring"**: 设置为时false，此规则检查解构分配（默认）
+- **选项 "ignoreImport"**: 设置为此时false，此规则检查导入（默认）
+- **选项 "ignoreExport"**: 设置为此时false，此规则检查导出（默认）
+##### 默认情况下此规则的代码不正确的示例：
+```javascript
+/*eslint no-useless-rename: "error"*/
+
+import { foo as foo } from "bar";
+export { foo as foo };
+export { foo as foo } from "bar";
+let { foo: foo } = bar;
+let { 'foo': foo } = bar;
+function foo({ bar: bar }) {}
+({ foo: foo }) => {}
+```
+##### 默认情况下此规则的正确代码示例：
+```javascript
+/*eslint no-useless-rename: "error"*/
+
+import * as foo from "foo";
+import { foo } from "bar";
+import { foo as bar } from "baz";
+
+export { foo };
+export { foo as bar };
+export { foo as bar } from "foo";
+
+let { foo } = bar;
+let { foo: bar } = baz;
+let { [foo]: foo } = bar;
+
+function foo({ bar }) {}
+function foo({ bar: baz }) {}
+
+({ foo }) => {}
+({ foo: bar }) => {}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-with">禁用 with 语句 (no-with)</a>
+>此规则目的在于排除 with 语句。
+ 
+>如果 ESLint 在严格模式下解析代码，解析器（不是该规则）将报告这样的错误。
+```javascript
+'no-with': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-with: "error"*/
+
+with (point) {
+    r = Math.sqrt(x * x + y * y); // is r a member of point?
+}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-with: "error"*/
+/*eslint-env es6*/
+
+const r = ({x, y}) => Math.sqrt(x * x + y * y);
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-whitespace-before-property">禁止属性前有空白 (no-whitespace-before-property)</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则禁止在点号周围或对象属性之前的左括号前出现空白。如果对象和属性不在同一行上，这种情况，该规则允许使用空白，因为对级联的属性增加新行是一种很普遍的行为。
+```javascript
+'no-whitespace-before-property': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint no-whitespace-before-property: "error"*/
+
+foo [bar]
+
+foo. bar
+
+foo .bar
+
+foo. bar. baz
+
+foo. bar()
+  .baz()
+
+foo
+  .bar(). baz()
+```
+##### 正确 代码示例：
+```javascript
+/*eslint no-whitespace-before-property: "error"*/
+
+foo.bar
+
+foo[bar]
+
+foo[ bar ]
+
+foo.bar.baz
+
+foo
+  .bar().baz()
+
+foo
+  .bar()
+  .baz()
+
+foo.
+  bar().
+  baz()
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="radix">要求必须有基数 (radix)</a>
+>该规则旨在防止出现不确定的字符串对数字的转换或防止在现代环境中出现多余的基数 10。
+```javascript
+'radix': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint radix: "error"*/
+
+var num = parseInt("071");
+
+var num = parseInt(someValue);
+
+var num = parseInt("071", "abc");
+
+var num = parseInt();
+```
+##### 正确 代码示例：
+```javascript
+/*eslint radix: "error"*/
+
+var num = parseInt("071", 10);
+
+var num = parseInt("071", 8);
+
+var num = parseFloat(someValue);
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="require-yield">禁用函数内没有yield的 generator 函数（require-yield）</a>
+>如果 generator 函数内部没有yield关键字，该规则将发出警告。
+```javascript
+'radix': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint require-yield: "error"*/
+/*eslint-env es6*/
+
+function* foo() {
+  return 10;
+}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint require-yield: "error"*/
+/*eslint-env es6*/
+
+function* foo() {
+  yield 5;
+  return 10;
+}
+
+function foo() {
+  return 10;
+}
+
+// This rule does not warn on empty generator functions.
+function* foo() { }
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="rest-spread-spacing">强制限制扩展运算符及其表达式之间的空格（rest-spread-spacing）</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>这条规则的目的是强制限制扩展运算符及其表达式之间的空格。该规则还支持当前的对象在启用时扩展属性。
+```javascript
+'rest-spread-spacing': ['warn', 'never']
+```
+- **等级 : "warn"**
+- **选项 "never"**: (默认)扩展运算符及其表达式之间不允许有空格。 
+##### 此规则的错误代码示例"never"：
+```javascript
+/*eslint rest-spread-spacing: ["error", "never"]*/
+
+fn(... args)
+[... arr, 4, 5, 6]
+let [a, b, ... arr] = [1, 2, 3, 4, 5];
+function fn(... args) { console.log(args); }
+let { x, y, ... z } = { x: 1, y: 2, a: 3, b: 4 };
+let n = { x, y, ... z };
+```
+##### 此规则的正确代码示例"never"：
+```javascript
+/*eslint rest-spread-spacing: ["error", "never"]*/
+
+fn(...args)
+[...arr, 4, 5, 6]
+let [a, b, ...arr] = [1, 2, 3, 4, 5];
+function fn(...args) { console.log(args); }
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+let n = { x, y, ...z };
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="strict">要求或禁止使用严格模式指令 (strict)</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>该规则要求或禁止严格模式指令。
+```javascript
+strict: ['warn', 'never']
+```
+- **等级 : "warn"**
+- **选项 "never"**: 禁用严格模式指令 
+##### 选项 "never" 的 错误 代码示例：
+```javascript
+/*eslint strict: ["error", "never"]*/
+
+"use strict";
+
+function foo() {
+}
+/*eslint strict: ["error", "never"]*/
+
+function foo() {
+    "use strict";
+}
+```
+##### 选项 "never" 的 正确 代码示例：
+```javascript
+/*eslint strict: ["error", "never"]*/
+
+function foo() {
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="unicode-bom">要求或禁止使用 Unicode 字节顺序标记 (BOM) (unicode-bom)</a>
+命令行中的 --fix 选项可以自动修复一些该规则报告的问题。
+>如果使用了 "always" 选项，该规则要求文件始终以 Unicode BOM 字符 U+FEFF 开头。如果是 "never"，文件决不能以 U+FEFF 开始。
+```javascript
+'unicode-bom': ['warn', 'never']
+```
+- **等级 : "warn"**
+- **选项 "never"**: (默认) 文件不能以 Unicode BOM 开头
+##### 选项 "never" 的 错误 代码示例：
+```javascript
+/*eslint unicode-bom: ["error", "never"]*/
+
+U+FEFF
+var abc;
+```
+##### 选项 "never" 的 正确 代码示例：
+```javascript
+/*eslint unicode-bom: ["error", "never"]*/
+
+var abc;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="use-isnan">要求调用 isNaN()检查 NaN (use-isnan)</a>
+>该规则禁止与 ‘NaN’ 的比较。
+```javascript
+'use-isnan': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint use-isnan: "error"*/
+
+if (foo == NaN) {
+    // ...
+}
+
+if (foo != NaN) {
+    // ...
+}
+```
+##### 正确 代码示例：
+```javascript
+/*eslint use-isnan: "error"*/
+
+if (isNaN(foo)) {
+    // ...
+}
+
+if (!isNaN(foo)) {
+    // ...
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="valid-typeof">强制 typeof 表达式与有效的字符串进行比较 (valid-typeof)</a>
+>该规则强制 typeof 表达式与有效的字符串进行比较。
+```javascript
+'valid-typeof': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*eslint valid-typeof: "error"*/
+
+typeof foo === "strnig"
+typeof foo == "undefimed"
+typeof bar != "nunber"
+typeof bar !== "fucntion"
+```
+##### 正确 代码示例：
+```javascript
+/*eslint valid-typeof: "error"*/
+
+typeof foo === "string"
+typeof bar == "undefined"
+typeof foo === baz
+typeof bar === typeof qux
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="no-restricted-properties">禁止某些对象属性 (no-restricted-properties)</a>
+>此规则查找访问给定对象名称上的给定属性键，无论是在读取属性的值还是将其作为函数调用时。您可以指定一个可选消息来指示替代API或限制原因。
+```javascript
+'no-restricted-properties': [
+  'error',
+  {
+    object: 'System',
+    property: 'import',
+    message: 'Please use import() instead.',
+  },
+]
+```
+- **等级 : "error"**
+- **选项 "object"**: 不允许的类名
+- **选项 "property"**: 不允许的属性名
+- **选项 "message"**: 提示信息
+
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="import/first">import/first</a>
+>该规则报告任何在非导入语句之后的导入。
+```javascript
+'import/first': 'error'
+```
+- **等级 : "error"**
+##### 错误 代码示例：
+```javascript
+import foo from './foo'
+
+// some module-level initializer
+initWith(foo)
+
+import bar from './bar' // <- reported
+```
+##### 正确 代码示例：
+```javascript
+import foo from './foo'
+import bar from './bar'
+
+// some module-level initializer
+initWith(foo)
+
+
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="import/no-amd">import/no-amd</a>
+>在模块范围的报告require([array], ...)和define([array], ...)函数调用。如果参数！= 2不会警告，或者第一个参数不是一个字符串数组。
+```javascript
+'import/no-amd': 'error'
+```
+- **等级 : "error"**
+##### 错误 代码示例：
+```javascript
+define（[ “ a ”，“ b ” ]，函数（a，b）{ / * ... * / }）
+
+require（[ “ b ”，“ c ” ]，函数（b，c）{ / * ... * / }）
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="import/no-webpack-loader-syntax">import/no-webpack-loader-syntax</a>
+>禁止在导入中使用Webpack加载器语法
+```javascript
+'import/no-webpack-loader-syntax': 'error'
+```
+- **等级 : "error"**
+##### 错误 代码示例：
+```javascript
+import myModule from 'my-loader!my-module';
+import theme from 'style!css!./theme.css';
+
+var myModule = require('my-loader!./my-module');
+var theme = require('style!css!./theme.css');
+```
+##### 正确 代码示例：
+```javascript
+import myModule from 'my-module';
+import theme from './theme.css';
+
+var myModule = require('my-module');
+var theme = require('./theme.css');
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/jsx-no-comment-textnodes">react/jsx-no-comment-textnodes</a>
+>这个规则防止注释字符串（例如，以//或开始/*）被意外注入为JSX语句中的文本节点。
+```javascript
+'react/jsx-no-comment-textnodes': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+var Hello = createReactClass({
+  render: function() {
+    return (
+      <div>// empty div</div>
+    );
+  }
+});
+
+var Hello = createReactClass({
+  render: function() {
+    return (
+      <div>
+        /* empty div */
+      </div>
+    );
+  }
+});
+```
+##### 正确 代码示例：
+```javascript
+var Hello = createReactClass({
+  displayName: 'Hello',
+  render: function() {
+    return <div>{/* empty div */}</div>;
+  }
+});
+
+var Hello = createReactClass({
+  displayName: 'Hello',
+  render: function() {
+    return <div /* empty div */></div>;
+  }
+});
+
+var Hello = createReactClass({
+  displayName: 'Hello',
+  render: function() {
+    return <div className={'foo' /* temp class */}</div>;
+  }
+});
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/jsx-no-duplicate-props">react/jsx-no-duplicate-props</a>
+>使用重复的props创建JSX元素可能会导致应用程序出现意外的行为。
+```javascript
+'react/jsx-no-duplicate-props': ['warn', { ignoreCase: true }]
+```
+- **等级 : "warn"**
+- **选项 "ignoreCase"**: 忽略大小写。默认为false。
+##### 错误 代码示例：
+```javascript
+< Hello  name = “ John ”  name = “ John ” />;
+```
+##### 正确 代码示例：
+```javascript
+< Hello  firstname = “ John ”  lastname = “ Doe ” />;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/jsx-no-target-blank">react/jsx-no-target-blank</a>
+>禁止使用不安全target='_blank' (外链)
+```javascript
+'react/jsx-no-target-blank': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+var Hello = <a target='_blank' href="http://example.com/"></a>
+```
+##### 正确 代码示例：
+```javascript
+var Hello = <p target='_blank'></p>
+var Hello = <a target='_blank' rel='noopener noreferrer' href="http://example.com"></a>
+var Hello = <a target='_blank' href="relative/path/in/the/host"></a>
+var Hello = <a target='_blank' href="/absolute/path/in/the/host"></a>
+var Hello = <a></a>
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/jsx-no-undef">react/jsx-no-undef</a>
+>在JSX中禁止未声明的变量
+```javascript
+'react/jsx-no-undef': 'error'
+```
+- **等级 : "error"**
+##### 错误 代码示例：
+```javascript
+<Hello name="John" />;
+// will ignore Text in the global scope and warn
+var Hello = React.createClass({
+  render: function() {
+    return <Text>Hello</Text>;
+  }
+});
+module.exports = Hello;
+```
+##### 正确 代码示例：
+```javascript
+var Hello = require('./Hello');
+
+<Hello name="John" />;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/jsx-pascal-case">react/jsx-pascal-case</a>
+>强化用户定义的JSX组件在PascalCase中定义和引用的编码风格。
+
+>请注意，由于React的JSX使用大小写约定来区分本地组件类和HTML标签，因此此规则不会警告以小写字母开头的组件。
+```javascript
+'react/jsx-pascal-case': [
+  'warn',
+  {
+    allowAllCaps: true,
+    ignore: [],
+  },
+]
+```
+- **等级 : "warn"**
+- **选项 "allowAllCaps"**: 可选布尔值设置为true允许所有大写字母的组件名称（默认为false）。
+- **选项 "ignore"**: 验证期间可忽略的组件名称的可选数组
+
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/jsx-uses-react">react/jsx-uses-react</a>
+>防止React被错误地标记为未使用
+```javascript
+'react/jsx-uses-react': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+var React = require('react');
+
+// nothing to do with React
+/** @jsx Foo */
+var React = require('react');
+
+var Hello = <div>Hello {this.props.name}</div>;
+```
+##### 正确 代码示例：
+```javascript
+var React = require('react');
+
+var Hello = <div>Hello {this.props.name}</div>;
+/** @jsx Foo */
+var Foo = require('foo');
+
+var Hello = <div>Hello {this.props.name}</div>;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/jsx-uses-vars">react/jsx-uses-vars</a>
+>防止在JSX中使用的变量被错误地标记为未使用
+```javascript
+'react/jsx-uses-vars': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+var Hello = require('./Hello');
+```
+##### 正确 代码示例：
+```javascript
+var Hello = require('./Hello');
+
+<Hello name="John" />;
 ```
 **[⬆ 回到顶部](#table-of-contents)**
