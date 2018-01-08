@@ -88,14 +88,13 @@
 1. [import/no-amd](#import/no-amd)
 1. [import/no-webpack-loader-syntax](#import/no-webpack-loader-syntax)
 
-1. [react/jsx-no-comment-textnodes](#react/jsx-no-comment-textnodes)
-1. [react/jsx-no-duplicate-props](#react/jsx-no-duplicate-props)
-1. [jsx-no-target-blank](#jsx-no-target-blank)
-1. [jsx-no-undef](#jsx-no-undef)
-1. [react/jsx-pascal-case](#react/jsx-pascal-case)
-1. [react/jsx-uses-react](#react/jsx-uses-react)
-1. [react/jsx-uses-vars](#react/jsx-uses-vars)
-
+1. [防止将注释作为文本节点插入(react/jsx-no-comment-textnodes)](#react/jsx-no-comment-textnodes)
+1. [禁止JSX中的重复属性(react/jsx-no-duplicate-props)](#react/jsx-no-duplicate-props)
+1. [禁止使用不安全target='_blank'(react/jsx-no-target-blank)](#react/jsx-no-target-blank)
+1. [在JSX中禁止未声明的变量(react/jsx-no-undef)](#react/jsx-no-undef)
+1. [为用户定义的JSX组件强制实施PascalCase(react/jsx-pascal-case)](#react/jsx-pascal-case)
+1. [防止React被错误地标记为未使用(react/jsx-uses-react)](#react/jsx-uses-react)
+1. [防止在JSX中使用的变量被错误地标记为未使用（react/jsx-uses-vars）](#react/jsx-uses-vars)
 1. [禁止children和props.dangerouslySetInnerHTML同时使用的问题（react/no-danger-with-children）](#react/no-danger-with-children)  
 1. [禁止使用已弃用的方法（react/no-deprecated）](#react/no-deprecated)  
 1. [禁止this.state的直接变化（react/no-deprecated）](#react/no-deprecated)  
@@ -3061,7 +3060,7 @@ var theme = require('./theme.css');
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="react/jsx-no-comment-textnodes">react/jsx-no-comment-textnodes</a>
+## <a name="react/jsx-no-comment-textnodes">防止将注释作为文本节点插入(react/jsx-no-comment-textnodes)</a>
 >这个规则防止注释字符串（例如，以//或开始/*）被意外注入为JSX语句中的文本节点。
 ```javascript
 'react/jsx-no-comment-textnodes': 'warn'
@@ -3113,7 +3112,7 @@ var Hello = createReactClass({
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="react/jsx-no-duplicate-props">react/jsx-no-duplicate-props</a>
+## <a name="react/jsx-no-duplicate-props">禁止JSX中的重复属性(react/jsx-no-duplicate-props)</a>
 >使用重复的props创建JSX元素可能会导致应用程序出现意外的行为。
 ```javascript
 'react/jsx-no-duplicate-props': ['warn', { ignoreCase: true }]
@@ -3131,7 +3130,7 @@ var Hello = createReactClass({
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="react/jsx-no-target-blank">react/jsx-no-target-blank</a>
+## <a name="react/jsx-no-target-blank">禁止使用不安全target='_blank'(react/jsx-no-target-blank)</a>
 >禁止使用不安全target='_blank' (外链)
 ```javascript
 'react/jsx-no-target-blank': 'warn'
@@ -3152,7 +3151,7 @@ var Hello = <a></a>
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="react/jsx-no-undef">react/jsx-no-undef</a>
+## <a name="react/jsx-no-undef">在JSX中禁止未声明的变量(react/jsx-no-undef)</a>
 >在JSX中禁止未声明的变量
 ```javascript
 'react/jsx-no-undef': 'error'
@@ -3178,7 +3177,7 @@ var Hello = require('./Hello');
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="react/jsx-pascal-case">react/jsx-pascal-case</a>
+## <a name="react/jsx-pascal-case">为用户定义的JSX组件强制实施PascalCase(react/jsx-pascal-case)</a>
 >强化用户定义的JSX组件在PascalCase中定义和引用的编码风格。
 
 >请注意，由于React的JSX使用大小写约定来区分本地组件类和HTML标签，因此此规则不会警告以小写字母开头的组件。
@@ -3198,7 +3197,7 @@ var Hello = require('./Hello');
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="react/jsx-uses-react">react/jsx-uses-react</a>
+## <a name="react/jsx-uses-react">防止React被错误地标记为未使用(react/jsx-uses-react)</a>
 >防止React被错误地标记为未使用
 ```javascript
 'react/jsx-uses-react': 'warn'
@@ -3227,7 +3226,7 @@ var Hello = <div>Hello {this.props.name}</div>;
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="react/jsx-uses-vars">react/jsx-uses-vars</a>
+## <a name="react/jsx-uses-vars">防止在JSX中使用的变量被错误地标记为未使用（react/jsx-uses-vars）</a>
 >防止在JSX中使用的变量被错误地标记为未使用
 ```javascript
 'react/jsx-uses-vars': 'warn'
