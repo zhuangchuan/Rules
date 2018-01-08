@@ -95,12 +95,17 @@
 1. [react/jsx-pascal-case](#react/jsx-pascal-case)
 1. [react/jsx-uses-react](#react/jsx-uses-react)
 1. [react/jsx-uses-vars](#react/jsx-uses-vars)
+
 1. [禁止children和props.dangerouslySetInnerHTML同时使用的问题（react/no-danger-with-children）](#react/no-danger-with-children)  
 1. [禁止使用已弃用的方法（react/no-deprecated）](#react/no-deprecated)  
 1. [禁止this.state的直接变化（react/no-deprecated）](#react/no-deprecated)  
 1. [禁止isMounted的使用（react/no-is-mounted）](#react/no-is-mounted) 
 1. [禁止在JSX使用缺失的React（react/react-in-jsx-scope）](#react/react-in-jsx-scope) 
-  
+1. [强制ES5或ES6类在渲染函数中返回值（react/require-render-return）](#react/require-render-return) 
+1. [样式属性值强制作为对象（react/style-prop-object）](#react/style-prop-object)
+ 
+1. [访问-表情符号（jsx-a11y/accessible-emoji）](#jsx-a11y/accessible-emoji)
+
 # 代码规范常见问题
 
 
@@ -3397,7 +3402,7 @@ var Hello = createReactClass({
 
 
 ## <a name="react/react-in-jsx-scope">禁止在JSX使用缺失的React（react/react-in-jsx-scope）</a>
->当使用JSX时，<a />扩展到React.createElement("a")。因此 React变量必须在范围内。
+>当使用JSX时，`<a />`扩展到React.createElement("a")。因此 React变量必须在范围内。
  如果您使用@jsx编译指示，则此规则将检查指定的变量而不是React一个。
 ```javascript
 'react/react-in-jsx-scope': 'error'
@@ -3423,5 +3428,105 @@ var Hello = <div>Hello {this.props.name}</div>;
 var Foo = require('foo');
 
 var Hello = <div>Hello {this.props.name}</div>;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/require-render-return">强制ES5或ES6类在渲染函数中返回值（react/require-render-return）</a>
+>render在组件中编写方法时，很容易忘记返回JSX内容。如果return声明丢失，此规则将会发出警告。
+```javascript
+'react/require-render-return': 'error'
+```
+- **等级 : "error"**
+##### 错误 代码示例：
+```javascript
+var Hello = createReactClass({
+  render() {
+    <div>Hello</div>;
+  }
+});
+
+class Hello extends React.Component {
+  render() {
+    <div>Hello</div>;
+  }
+}
+```
+##### 正确 代码示例：
+```javascript
+var Hello = createReactClass({
+  render() {
+    return <div>Hello</div>;
+  }
+});
+
+class Hello extends React.Component {
+  render() {
+    return <div>Hello</div>;
+  }
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/style-prop-object">样式属性值强制作为对象（react/style-prop-object）</a>
+>要求prop的值style是一个对象或是一个对象的变量。
+```javascript
+'react/style-prop-object': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<div style="color: 'red'" />
+
+<div style={true} />
+
+<Hello style={true} />
+
+const styles = true;
+<div style={styles} />
+React.createElement("div", { style: "color: 'red'" });
+
+React.createElement("div", { style: true });
+
+React.createElement("Hello", { style: true });
+
+const styles = true;
+React.createElement("div", { style: styles });
+```
+##### 正确 代码示例：
+```javascript
+<div style={{ color: "red" }} />
+
+<Hello style={{ color: "red" }} />
+
+const styles = { color: "red" };
+<div style={styles} />
+React.createElement("div", { style: { color: 'red' }});
+
+React.createElement("Hello", { style: { color: 'red' }});
+
+const styles = { height: '100px' };
+React.createElement("div", { style: styles });
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/accessible-emoji">访问-表情符号（jsx-a11y/accessible-emoji）</a>
+>表情符号已经成为向最终用户传达内容的常用方式。然而，对于使用屏幕阅读器的人来说，他/她可能根本不知道这个内容在那里。通过在屏幕阅读器中包装表情符号<span>，给予role="img"和提供有用的描述aria-label，屏幕阅读器将表情符号视为可访问树中的图像，并为最终用户提供可访问的名称。
+```javascript
+'jsx-a11y/accessible-emoji': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<span role="img" aria-label="Snowman">&#9731;</span>
+<span role="img" aria-label="Panda">🐼</span>
+<span role="img" aria-labelledby="panda1">🐼</span> 
+```
+##### 正确 代码示例：
+```javascript
+<span>🐼</span>
+<i role="img" aria-label="Panda">🐼</i>
 ```
 **[⬆ 回到顶部](#table-of-contents)**
