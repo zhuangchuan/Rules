@@ -94,8 +94,11 @@
 1. [jsx-no-undef](#jsx-no-undef)
 1. [react/jsx-pascal-case](#react/jsx-pascal-case)
 1. [react/jsx-uses-react](#react/jsx-uses-react)
-1. [react/jsx-uses-vars](#strict)
-  
+1. [react/jsx-uses-vars](#react/jsx-uses-vars)
+1. [禁止children和props.dangerouslySetInnerHTML同时使用的问题（react/no-danger-with-children）](#react/no-danger-with-children)  
+1. [禁止使用已弃用的方法（react/no-deprecated）](#react/no-deprecated)  
+1. [禁止this.state的直接变化（react/no-deprecated）](#react/no-deprecated)  
+1. [禁止isMounted的使用（react/no-is-mounted）](#react/no-is-mounted)  
   
 # 代码规范常见问题
 
@@ -3215,5 +3218,178 @@ var Hello = require('./Hello');
 var Hello = require('./Hello');
 
 <Hello name="John" />;
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/no-danger-with-children">禁止children和props.dangerouslySetInnerHTML同时使用的问题（react/no-danger-with-children）</a>
+>此规则有助于阻止由于同时使用children和props.dangerouslySetInnerHTML而导致的问题。如果此规则被忽略，React将会发出警告。
+```javascript
+'react/no-danger-with-children': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<div dangerouslySetInnerHTML={{ __html: "HTML" }}>
+  Children
+</div>
+
+<Hello dangerouslySetInnerHTML={{ __html: "HTML" }}>
+  Children
+</Hello>
+React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children");
+
+React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" } }, "Children");
+```
+##### 正确 代码示例：
+```javascript
+<div dangerouslySetInnerHTML={{ __html: "HTML" }} />
+
+<Hello dangerouslySetInnerHTML={{ __html: "HTML" }} />
+
+<div>
+  Children
+</div>
+
+<Hello>
+  Children
+</Hello>
+React.createElement("div", { dangerouslySetInnerHTML: { __html: "HTML" } });
+
+React.createElement("Hello", { dangerouslySetInnerHTML: { __html: "HTML" } });
+
+React.createElement("div", {}, "Children");
+
+React.createElement("Hello", {}, "Children");
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/no-deprecated">禁止使用已弃用的方法（react/no-deprecated）</a>
+>React版本之间已经废弃了几种方法。如果您尝试使用不推荐使用的方法，此规则会警告您。使用共享设置指定React版本。
+```javascript
+'react/no-deprecated': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+React.render(<MyComponent />, root);
+
+React.unmountComponentAtNode(root);
+
+React.findDOMNode(this.refs.foo);
+
+React.renderToString(<MyComponent />);
+
+React.renderToStaticMarkup(<MyComponent />);
+
+React.createClass({ /* Class object */ });
+
+const propTypes = {
+  foo: PropTypes.bar,
+};
+
+//Any factories under React.DOM
+React.DOM.div();
+
+import React, { PropTypes } from 'react';
+```
+##### 正确 代码示例：
+```javascript
+ReactDOM.render(<MyComponent />, root);
+
+// When [1, {"react": "0.13.0"}]
+ReactDOM.findDOMNode(this.refs.foo);
+
+import { PropTypes } from 'prop-types';
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/no-direct-mutation-state">禁止this.state的直接变化（react/no-direct-mutation-state）</a>
+>阻止this.state直接变化，因为setState()后来调用可能会取代你所做的变化。把this.state它看作是不可改变的。
+ 
+>唯一可以分配this.state的地方是在ES6 class组件构造函数中。
+```javascript
+'react/no-direct-mutation-state': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+var Hello = createReactClass({
+  componentDidMount: function() {
+    this.state.name = this.props.name.toUpperCase();
+  },
+  render: function() {
+    return <div>Hello {this.state.name}</div>;
+  }
+});
+
+class Hello extends React.Component {
+  constructor(props) {
+    super(props)
+
+    // Assign at instance creation time, not on a callback
+    doSomethingAsync(() => {
+      this.state = 'bad';
+    });
+  }
+}
+```
+##### 正确 代码示例：
+```javascript
+var Hello = createReactClass({
+  componentDidMount: function() {
+    this.setState({
+      name: this.props.name.toUpperCase();
+    });
+  },
+  render: function() {
+    return <div>Hello {this.state.name}</div>;
+  }
+});
+
+class Hello extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      foo: 'bar',
+    }
+  }
+}
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+
+## <a name="react/no-is-mounted">禁止isMounted的使用（react/no-is-mounted）</a>
+>isMounted是一种反模式，在使用ES6类时是不可用的，并且正在被官方弃用。
+```javascript
+'react/no-is-mounted': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+var Hello = createReactClass({
+  handleClick: function() {
+    setTimeout(function() {
+      if (this.isMounted()) {
+        return;
+      }
+    });
+  },
+  render: function() {
+    return <div onClick={this.handleClick.bind(this)}>Hello</div>;
+  }
+});
+```
+##### 正确 代码示例：
+```javascript
+var Hello = createReactClass({
+  render: function() {
+    return <div onClick={this.props.handleClick}>Hello</div>;
+  }
+});
 ```
 **[⬆ 回到顶部](#table-of-contents)**
