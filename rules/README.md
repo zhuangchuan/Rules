@@ -3542,7 +3542,7 @@ React.createElement("div", { style: styles });
 
 
 ## <a name="jsx-a11y/alt-text">alt-文本（jsx-a11y/alt-text）</a>
->强制要求所有需要替代文本的元素都有有意义的信息传递给最终用户。这是屏幕阅读器用户可访问性的重要组成部分，以便他们了解内容在页面上的用途。默认情况下，此规则将检查以下内容替代文本：<img>，<area>，<input type="image">，和<object>。
+>强制要求所有需要替代文本的元素都有有意义的信息传递给最终用户。这是屏幕阅读器用户可访问性的重要组成部分，以便他们了解内容在页面上的用途。默认情况下，此规则将检查以下内容替代文本：`<img>，<area>，<input type="image">，和<object>`。
 ```javascript
 'jsx-a11y/alt-text': 'warn'
 ```
