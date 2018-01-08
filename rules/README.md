@@ -98,7 +98,8 @@
 1. [禁止children和props.dangerouslySetInnerHTML同时使用的问题（react/no-danger-with-children）](#react/no-danger-with-children)  
 1. [禁止使用已弃用的方法（react/no-deprecated）](#react/no-deprecated)  
 1. [禁止this.state的直接变化（react/no-deprecated）](#react/no-deprecated)  
-1. [禁止isMounted的使用（react/no-is-mounted）](#react/no-is-mounted)  
+1. [禁止isMounted的使用（react/no-is-mounted）](#react/no-is-mounted) 
+1. [禁止在JSX使用缺失的React（react/react-in-jsx-scope）](#react/react-in-jsx-scope) 
   
 # 代码规范常见问题
 
@@ -3391,5 +3392,36 @@ var Hello = createReactClass({
     return <div onClick={this.props.handleClick}>Hello</div>;
   }
 });
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="react/react-in-jsx-scope">禁止在JSX使用缺失的React（react/react-in-jsx-scope）</a>
+>当使用JSX时，<a />扩展到React.createElement("a")。因此 React变量必须在范围内。
+ 如果您使用@jsx编译指示，则此规则将检查指定的变量而不是React一个。
+```javascript
+'react/react-in-jsx-scope': 'error'
+```
+- **等级 : "error"**
+##### 错误 代码示例：
+```javascript
+var Hello = <div>Hello {this.props.name}</div>;
+/** @jsx Foo.bar */
+var React = require('react');
+
+var Hello = <div>Hello {this.props.name}</div>;
+```
+##### 正确 代码示例：
+```javascript
+import React from 'react';
+
+var Hello = <div>Hello {this.props.name}</div>;
+var React = require('react');
+
+var Hello = <div>Hello {this.props.name}</div>;
+/** @jsx Foo.bar */
+var Foo = require('foo');
+
+var Hello = <div>Hello {this.props.name}</div>;
 ```
 **[⬆ 回到顶部](#table-of-contents)**
