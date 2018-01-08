@@ -114,6 +114,15 @@
 1. [aria不受支持的元素（jsx-a11y/aria-unsupported-elements）](#jsx-a11y/aria-unsupported-elements)
 1. [标题要有内容（jsx-a11y/heading-has-content）](#jsx-a11y/heading-has-content)
 1. [href必须是有效性的（jsx-a11y/href-no-hash）](#jsx-a11y/href-no-hash)
+1. [iframe的标题（jsx-a11y/iframe-has-title）](#jsx-a11y/iframe-has-title)
+1. [img-多余的-alt（jsx-a11y/img-redundant-alt）](#jsx-a11y/img-redundant-alt)
+1. [禁止access-key（jsx-a11y/no-access-key）](#jsx-a11y/no-access-key)
+1. [禁用废弃的元素（jsx-a11y/no-distracting-elements）](#jsx-a11y/no-distracting-elements)
+1. [禁用多余的roles（jsx-a11y/no-redundant-roles）](#jsx-a11y/no-redundant-roles)
+1. [role有要求的aria props（jsx-a11y/role-has-required-aria-props）](#jsx-a11y/role-has-required-aria-props)
+1. [role-支持的-aria-props（jsx-a11y/role-supports-aria-props）](#jsx-a11y/role-supports-aria-props)
+1. [范围（jsx-a11y/scope）](#jsx-a11y/scope)
+
 
 # 代码规范常见问题
 
@@ -3607,7 +3616,7 @@ React.createElement("div", { style: styles });
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="jsx-a11y/aria-activedescendant-has-tabindex">aria-activedescendant-的TabIndex（jsx-a11y/aria-activedescendant-has-tabindex）(#jsx-a11y/aria-activedescendant-has-tabindex)</a>
+## <a name="jsx-a11y/aria-activedescendant-has-tabindex">aria-activedescendant-的TabIndex（jsx-a11y/aria-activedescendant-has-tabindex）</a>
 >aria-activedescendant用于管理复合小部件中的焦点。具有该属性的元素aria-activedescendant保留活动文档焦点; 它通过将该元素的ID分配给值来指示它的哪个子元素具有次要焦点aria-activedescendant。这个模式用于构建一个像搜索类型的选择列表。搜索输入框保留文档焦点，以便用户可以键入输入。如果按下向下箭头键并突出显示搜索建议，则建议元素的ID将作为aria-activedescendant输入元素的值应用。
  
 >由于一个元素aria-activedescendant必须是可放大的，它必须有一个固有tabIndex的零或者tabIndex用tabIndex 属性声明一个零。
@@ -3640,7 +3649,7 @@ React.createElement("div", { style: styles });
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="jsx-a11y/aria-props">元素不能使用无效的aria属性（jsx-a11y/aria-props）(#jsx-a11y/aria-props)</a>
+## <a name="jsx-a11y/aria-props">元素不能使用无效的aria属性（jsx-a11y/aria-props）</a>
 >元素不能使用无效的aria属性。如果找到WAI-ARIA状态和属性规范中aria-*没有列出的属性，将会失败。
 ```javascript
 'jsx-a11y/aria-props': 'warn'
@@ -3661,7 +3670,7 @@ React.createElement("div", { style: styles });
 **[⬆ 回到顶部](#table-of-contents)**
 
 
-## <a name="jsx-a11y/aria-proptypes">aria状态和属性值必须有效（jsx-a11y/aria-proptypes）(#jsx-a11y/aria-props)</a>
+## <a name="jsx-a11y/aria-proptypes">aria状态和属性值必须有效（jsx-a11y/aria-proptypes）</a>
 >aria状态和属性值必须有效
 ```javascript
 'jsx-a11y/aria-proptypes': 'warn'
@@ -3786,3 +3795,172 @@ React.createElement("div", { style: styles });
 <a href={someValidPath} onClick={foo} />
 ```
 **[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/iframe-has-title">iframe的标题（jsx-a11y/iframe-has-title）</a>
+>`<iframe>` 元素必须具有唯一的标题属性以向用户指示其内容。
+```javascript
+'jsx-a11y/iframe-has-title': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<iframe />
+<iframe {...props} />
+<iframe title="" />
+<iframe title={''} />
+<iframe title={``} />
+<iframe title={undefined} />
+<iframe title={false} />
+<iframe title={true} />
+<iframe title={42} />
+```
+##### 正确 代码示例：
+```javascript
+<iframe title="This is a unique title" />
+<iframe title={uniqueTitle} />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/img-redundant-alt">img-多余的-alt（jsx-a11y/img-redundant-alt）</a>
+>强制img alt属性不包含单词图像，图片或照片。屏幕阅读器已经将img元素宣布为图片。不需要使用图像，照片和/或图片等文字。
+```javascript
+'jsx-a11y/img-redundant-alt': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<img src="foo" alt="Photo of foo being weird." />
+<img src="bar" alt="Image of me at a bar!" />
+<img src="baz" alt="Picture of baz fixing a bug." />
+```
+##### 正确 代码示例：
+```javascript
+<img src="foo" alt="Foo eating a sandwich." />
+<img src="bar" aria-hidden alt="Picture of me taking a photo of an image" /> // Will pass because it is hidden.
+<img src="baz" alt={`Baz taking a ${photo}`} /> // This is valid since photo is a variable name.
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/no-access-key">禁止access-key（jsx-a11y/no-access-key）</a>
+>强制元素没有accessKey prop。访问键是允许Web开发人员将键盘快捷键分配给元素的HTML属性。屏幕阅读器和键盘所使用的键盘快捷键和键盘命令之间的不一致会造成无障碍复杂性，因此为避免复杂化，不应使用快捷键。
+```javascript
+'jsx-a11y/no-access-key': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<div accessKey="h" />
+```
+##### 正确 代码示例：
+```javascript
+<div />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/no-distracting-elements">禁用废弃的元素（jsx-a11y/no-distracting-elements）</a>
+>这些元素很可能被弃用，应该避免。默认情况下，下列元素在视觉上分散注意力：`<marquee>和<blink>`。
+```javascript
+'jsx-a11y/no-distracting-elements': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<marquee />
+<blink />
+```
+##### 正确 代码示例：
+```javascript
+<div />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/no-redundant-roles">禁用多余的roles（jsx-a11y/no-redundant-roles）</a>
+>一些HTML元素具有由浏览器实现的本地语义。这包括默认/隐含的ARIA角色。设置匹配其默认/隐含角色的ARIA角色是多余的，因为它已经被浏览器设置。
+```javascript
+'jsx-a11y/no-redundant-roles': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<button role="button" />
+<img role="img" src="foo.jpg" />
+```
+##### 正确 代码示例：
+```javascript
+<div />
+<button role="presentation" />
+<MyComponent role="main" />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/role-has-required-aria-props">role有要求的aria props（jsx-a11y/role-has-required-aria-props）</a>
+>具有aria role的元素必须具有该角色的所有必需属性。
+```javascript
+'jsx-a11y/role-has-required-aria-props': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<!-- Bad: the checkbox role requires the aria-checked state -->
+<span role="checkbox" aria-labelledby="foo" tabindex="0"></span>
+```
+##### 正确 代码示例：
+```javascript
+<!-- Good: the checkbox role requires the aria-checked state -->
+<span role="checkbox" aria-checked="false" aria-labelledby="foo" tabindex="0"></span>
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/role-supports-aria-props">role-支持的-aria-props（jsx-a11y/role-supports-aria-props）</a>
+>强制定义显式或隐式角色的元素仅包含aria-*由其支持的属性role。许多ARIA属性（状态和属性）只能用于具有特定角色的元素。一些元素具有隐含的角色，例如`<a href="#" />`，将解析为role="link"。
+```javascript
+'jsx-a11y/role-supports-aria-props': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<!-- Bad: the radio role does not support the aria-required property -->
+<ul role="radiogroup" aria-labelledby="foo">
+    <li aria-required tabIndex="-1" role="radio" aria-checked="false">Rainbow Trout</li>
+    <li aria-required tabIndex="-1" role="radio" aria-checked="false">Brook Trout</li>
+    <li aria-required tabIndex="0" role="radio" aria-checked="true">Lake Trout</li>
+</ul>
+```
+##### 正确 代码示例：
+```javascript
+<!-- Good: the radiogroup role does support the aria-required property -->
+<ul role="radiogroup" aria-required aria-labelledby="foo">
+    <li tabIndex="-1" role="radio" aria-checked="false">Rainbow Trout</li>
+    <li tabIndex="-1" role="radio" aria-checked="false">Brook Trout</li>
+    <li tabIndex="0" role="radio" aria-checked="true">Lake Trout</li>
+</ul>
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/scope">范围（jsx-a11y/scope）</a>
+>scope的范围应该只在< th >元素上使用。
+```javascript
+'jsx-a11y/scope': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<div scope />
+```
+##### 正确 代码示例：
+```javascript
+<th scope="col" />
+<th scope={scope} />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+
