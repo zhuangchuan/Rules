@@ -105,6 +105,15 @@
 1. [样式属性值强制作为对象（react/style-prop-object）](#react/style-prop-object)
  
 1. [访问-表情符号（jsx-a11y/accessible-emoji）](#jsx-a11y/accessible-emoji)
+1. [alt-文本（jsx-a11y/alt-text）](#jsx-a11y/alt-text)
+1. [锚点-的-内容（jsx-a11y/anchor-has-content）](#jsx-a11y/anchor-has-content)
+1. [aria-activedescendant-的TabIndex（jsx-a11y/aria-activedescendant-has-tabindex）](#jsx-a11y/aria-activedescendant-has-tabindex)
+1. [元素不能使用无效的aria属性（jsx-a11y/aria-props）](#jsx-a11y/aria-props)
+1. [aria状态和属性值必须有效（jsx-a11y/aria-proptypes）](#jsx-a11y/aria-proptypes)
+1. [元素必须使用有效的aria角色（jsx-a11y/aria-role）](#jsx-a11y/aria-role)
+1. [aria不受支持的元素（jsx-a11y/aria-unsupported-elements）](#jsx-a11y/aria-unsupported-elements)
+1. [标题要有内容（jsx-a11y/heading-has-content）](#jsx-a11y/heading-has-content)
+1. [href必须是有效性的（jsx-a11y/href-no-hash）](#jsx-a11y/href-no-hash)
 
 # 代码规范常见问题
 
@@ -3528,5 +3537,252 @@ React.createElement("div", { style: styles });
 ```javascript
 <span>🐼</span>
 <i role="img" aria-label="Panda">🐼</i>
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/alt-text">alt-文本（jsx-a11y/alt-text）</a>
+>强制要求所有需要替代文本的元素都有有意义的信息传递给最终用户。这是屏幕阅读器用户可访问性的重要组成部分，以便他们了解内容在页面上的用途。默认情况下，此规则将检查以下内容替代文本：<img>，<area>，<input type="image">，和<object>。
+```javascript
+'jsx-a11y/alt-text': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<img src="foo" />
+<img {...props} />
+<img {...props} alt /> // Has no value
+<img {...props} alt={undefined} /> // Has no value
+<img {...props} alt={`${undefined}`} /> // Has no value
+<img src="foo" role="presentation" /> // Avoid ARIA if it can be achieved without
+<img src="foo" role="none" /> // Avoid ARIA if it can be achieved without
+
+<object {...props} />
+
+<area {...props} />
+
+<input type="image" {...props} />
+```
+##### 正确 代码示例：
+```javascript
+<img src="foo" alt="Foo eating a sandwich." />
+<img src="foo" alt={"Foo eating a sandwich."} />
+<img src="foo" alt={altText} />
+<img src="foo" alt={`${person} smiling`} />
+<img src="foo" alt="" />
+
+<object aria-label="foo" />
+<object aria-labelledby="id1" />
+<object>Meaningful description</object>
+<object title="An object" />
+
+<area aria-label="foo" />
+<area aria-labelledby="id1" />
+<area alt="This is descriptive!" />
+
+<input type="image" alt="This is descriptive!" />
+<input type="image" aria-label="foo" />
+<input type="image" aria-labelledby="id1" />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/anchor-has-content">锚点-的-内容（jsx-a11y/anchor-has-content）</a>
+>强制锚具有内容，屏幕阅读器可以访问内容。可访问性意味着它不会使用aria-hidden道具隐藏。
+```javascript
+'jsx-a11y/anchor-has-content': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<a />
+<a><TextWrapper aria-hidden /></a>
+```
+##### 正确 代码示例：
+```javascript
+<a>Anchor Content!</a>
+<a><TextWrapper /><a>
+<a dangerouslySetInnerHTML={{ __html: 'foo' }} />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/aria-activedescendant-has-tabindex">aria-activedescendant-的TabIndex（jsx-a11y/aria-activedescendant-has-tabindex）(#jsx-a11y/aria-activedescendant-has-tabindex)</a>
+>aria-activedescendant用于管理复合小部件中的焦点。具有该属性的元素aria-activedescendant保留活动文档焦点; 它通过将该元素的ID分配给值来指示它的哪个子元素具有次要焦点aria-activedescendant。这个模式用于构建一个像搜索类型的选择列表。搜索输入框保留文档焦点，以便用户可以键入输入。如果按下向下箭头键并突出显示搜索建议，则建议元素的ID将作为aria-activedescendant输入元素的值应用。
+ 
+>由于一个元素aria-activedescendant必须是可放大的，它必须有一个固有tabIndex的零或者tabIndex用tabIndex 属性声明一个零。
+```javascript
+'jsx-a11y/aria-activedescendant-has-tabindex': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<div aria-activedescendant={someID} />
+<div aria-activedescendant={someID} tabIndex={-1} />
+<div aria-activedescendant={someID} tabIndex="-1" />
+<input aria-activedescendant={someID} tabIndex={-1} />
+```
+##### 正确 代码示例：
+```javascript
+<CustomComponent />
+<CustomComponent aria-activedescendant={someID} />
+<CustomComponent aria-activedescendant={someID} tabIndex={0} />
+<CustomComponent aria-activedescendant={someID} tabIndex={-1} />
+<div />
+<input />
+<div tabIndex={0} />
+<div aria-activedescendant={someID} tabIndex={0} />
+<div aria-activedescendant={someID} tabIndex="0" />
+<div aria-activedescendant={someID} tabIndex={1} />
+<input aria-activedescendant={someID} />
+<input aria-activedescendant={someID} tabIndex={0} />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/aria-props">元素不能使用无效的aria属性（jsx-a11y/aria-props）(#jsx-a11y/aria-props)</a>
+>元素不能使用无效的aria属性。如果找到WAI-ARIA状态和属性规范中aria-*没有列出的属性，将会失败。
+```javascript
+'jsx-a11y/aria-props': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<!-- Bad: Labeled using incorrectly spelled aria-labeledby -->
+<div id="address_label">Enter your address</div>
+<input aria-labeledby="address_label">
+```
+##### 正确 代码示例：
+```javascript
+<!-- Good: Labeled using correctly spelled aria-labelledby -->
+<div id="address_label">Enter your address</div>
+<input aria-labelledby="address_label">
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/aria-proptypes">aria状态和属性值必须有效（jsx-a11y/aria-proptypes）(#jsx-a11y/aria-props)</a>
+>aria状态和属性值必须有效
+```javascript
+'jsx-a11y/aria-proptypes': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<!-- Bad: the aria-hidden state is of type true/false -->
+<span aria-hidden="yes">foo</span>
+```
+##### 正确 代码示例：
+```javascript
+<!-- Good: the aria-hidden state is of type true/false -->
+<span aria-hidden="true">foo</span>
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/aria-role">元素必须使用有效的aria角色（jsx-a11y/aria-role）(#jsx-a11y/aria-props)</a>
+>具有aria角色的元素必须使用有效的，非抽象的aria角色。
+```javascript
+'jsx-a11y/aria-role': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<div role="datepicker"></div> <!-- Bad: "datepicker" is not an ARIA role -->
+<div role="range"></div>      <!-- Bad: "range" is an _abstract_ ARIA role -->
+<div role=""></div>           <!-- Bad: An empty ARIA role is not allowed -->
+<Foo role={role}></Foo>       <!-- Bad: ignoreNonDOM is set to false or not set -->
+```
+##### 正确 代码示例：
+```javascript
+<div role="button"></div>     <!-- Good: "button" is a valid ARIA role -->
+<div role={role}></div>       <!-- Good: role is a variable & cannot be determined until runtime. -->
+<div></div>                   <!-- Good: No ARIA role -->
+<Foo role={role}></Foo>       <!-- Good: ignoreNonDOM is set to true -->
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/aria-unsupported-elements">aria不受支持的元素（jsx-a11y/aria-unsupported-elements）</a>
+>某些保留的DOM元素不支持aria角色，状态和属性。这往往是因为他们是不可见的，例如meta，html，script，style。此规则强制这些DOM元素不包含role和/或aria-* props。
+```javascript
+'jsx-a11y/aria-unsupported-elements': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<!-- Bad: the meta element should not be given any ARIA attributes -->
+<meta charset="UTF-8" aria-hidden="false" />
+```
+##### 正确 代码示例：
+```javascript
+<!-- Good: the meta element should not be given any ARIA attributes -->
+<meta charset="UTF-8" />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/heading-has-content">标题要有内容（jsx-a11y/heading-has-content）</a>
+>强制执行标题元素（h1，h2等）为内容和内容的屏幕读取器访问。可访问性意味着它不会使用aria-hidden prop隐藏。
+```javascript
+'jsx-a11y/heading-has-content': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+<h1 />
+<h1><TextWrapper aria-hidden />
+```
+##### 正确 代码示例：
+```javascript
+<h1>Heading Content!</h1>
+<h1><TextWrapper /><h1>
+<h1 dangerouslySetInnerHTML={{ __html: 'foo' }} />
+```
+**[⬆ 回到顶部](#table-of-contents)**
+
+
+## <a name="jsx-a11y/href-no-hash">href必须是有效性的（jsx-a11y/href-no-hash）</a>
+>`<a>`具有有效href属性的HTML 元素被正式定义为表示超链接。也就是说，一个HTML文档与另一个HTML文档之间的链接，或者HTML文档中的一个位置与同一文档内的另一个位置之间的链接。
+```javascript
+'jsx-a11y/href-no-hash': 'warn'
+```
+- **等级 : "warn"**
+##### 错误 代码示例：
+```javascript
+/*Anchors should be a button:*/
+<a onClick={foo} />
+<a href="#" onClick={foo} />
+<a href={"#"} onClick={foo} />
+<a href={`#`} onClick={foo} />
+<a href="javascript:void(0)" onClick={foo} />
+<a href={"javascript:void(0)"} onClick={foo} />
+<a href={`javascript:void(0)`} onClick={foo} />
+
+/*Missing href attribute:*/
+<a />
+<a href={undefined} />
+<a href={null} />
+
+/*Invalid href attribute:*/
+<a href="#" />
+<a href={"#"} />
+<a href={`#`} />
+<a href="javascript:void(0)" />
+<a href={"javascript:void(0)"} />
+<a href={`javascript:void(0)`} />
+```
+##### 正确 代码示例：
+```javascript
+<a href="https://github.com" />
+<a href="#section" />
+<a href="foo" />
+<a href="/foo/bar" />
+<a href={someValidPath} />
+<a href="https://github.com" onClick={foo} />
+<a href="#section" onClick={foo} />
+<a href="foo" onClick={foo} />
+<a href="/foo/bar" onClick={foo} />
+<a href={someValidPath} onClick={foo} />
 ```
 **[⬆ 回到顶部](#table-of-contents)**
